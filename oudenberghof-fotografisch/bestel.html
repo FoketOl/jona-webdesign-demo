@@ -1927,76 +1927,17 @@ select:focus-visible {
             </div>
 
             <button type="button" class="btn btn-primary" id="checkoutBtn" style="width: 100%;" disabled>
-              Ga naar afrekenen
+              Bestel via Oudenberghof Takeaway
             </button>
-          </div>
-
-          <!-- Checkout Form -->
-          <div class="cart-panel checkout-form" id="checkoutForm" style="margin-top: 1rem;">
-            <h3 style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem;">Gegevens</h3>
-
-            <div class="form-row">
-              <div class="form-group">
-                <label for="fname">Voornaam *</label>
-                <input type="text" id="fname" required>
-              </div>
-              <div class="form-group">
-                <label for="lname">Achternaam *</label>
-                <input type="text" id="lname" required>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="phone">Telefoon *</label>
-              <input type="tel" id="phone" required>
-            </div>
-
-            <div class="form-group">
-              <label for="email">E-mail</label>
-              <input type="email" id="email">
-            </div>
-
-            <div class="form-group" id="addressGroup" style="display: none;">
-              <label for="address">Adres (voor levering)</label>
-              <input type="text" id="address" placeholder="Straat, huisnummer, postcode, gemeente">
-            </div>
-
-            <div class="form-group">
-              <label for="notes">Opmerkingen</label>
-              <textarea id="notes" placeholder="Allergieën, speciale wensen..."></textarea>
-            </div>
-
-            <button type="button" class="btn btn-primary" id="placeOrderBtn" style="width: 100%;">
-              Plaats bestelling
-            </button>
-            <button type="button" class="btn btn-outline" id="cancelCheckoutBtn" style="width: 100%; margin-top: 0.5rem;">
-              Annuleren
-            </button>
+            <p style="color: var(--text-muted); font-size: 0.78rem; margin-top: 0.6rem; text-align: center;">
+              Afrekenen verloopt via het bestaande, vertrouwde bestelsysteem van Oudenberghof —
+              deze pagina stuurt je gewoon door.
+            </p>
           </div>
         </aside>
       </div>
     </div>
   </main>
-
-  <!-- Confirmation Overlay -->
-  <div class="confirmation-overlay" id="confirmationOverlay" role="dialog" aria-modal="true" aria-labelledby="confirmTitle" aria-describedby="confirmDesc">
-    <div class="confirmation-card">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
-        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-        <polyline points="22 4 12 14.01 9 11.01"/>
-      </svg>
-      <h2 id="confirmTitle">Bedankt voor je bestelling!</h2>
-      <p id="confirmDesc">We hebben je bestelling ontvangen en bereiden deze voor op het gekozen tijdstip.</p>
-      <p class="order-ref" id="orderRef">Ref: #OB-000000</p>
-      <p style="font-size: 0.9rem; color: var(--text-muted);">
-        Een bevestiging is verstuurd naar het opgegeven e-mailadres.<br>
-        Voor vragen: <a href="tel:054412854">054/41 28 54</a>
-      </p>
-      <button type="button" class="btn btn-primary" id="closeConfirmBtn" style="margin-top: 1.5rem;">
-        Sluiten
-      </button>
-    </div>
-  </div>
 
   <script>/* ============================================
    TAVERNE OUDENBERGHOF — Main JavaScript
@@ -2127,8 +2068,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const cartItemsEl = document.getElementById('cartItems');
     const cartTotalEl = document.getElementById('cartTotal');
     const checkoutBtn = document.getElementById('checkoutBtn');
-    const checkoutForm = document.getElementById('checkoutForm');
-    const confirmationOverlay = document.getElementById('confirmationOverlay');
     const orderTypeBtns = document.querySelectorAll('.order-type-btn');
     const addressGroup = document.getElementById('addressGroup');
 
@@ -2197,7 +2136,6 @@ document.addEventListener('DOMContentLoaded', function() {
       if (items.length === 0) {
         cartItemsEl.innerHTML = '<div class="cart-empty">Je winkelmandje is nog leeg</div>';
         checkoutBtn.disabled = true;
-        checkoutForm.classList.remove('active');
       } else {
         cartItemsEl.innerHTML = items.map(item => `
           <div class="cart-item">
@@ -2244,72 +2182,10 @@ document.addEventListener('DOMContentLoaded', function() {
       return div.innerHTML;
     }
 
-    // Checkout toggle
+    // Bestelling wordt afgerond via het bestaande bestelsysteem van de zaak,
+    // niet via een eigen checkout — zie Decisions/... Oudenberghof-voorstel voor de afweging.
     checkoutBtn.addEventListener('click', () => {
-      checkoutForm.classList.add('active');
-      checkoutForm.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    });
-
-    document.getElementById('cancelCheckoutBtn').addEventListener('click', () => {
-      checkoutForm.classList.remove('active');
-    });
-
-    // Place order
-    document.getElementById('placeOrderBtn').addEventListener('click', () => {
-      const fname = document.getElementById('fname').value.trim();
-      const lname = document.getElementById('lname').value.trim();
-      const phone = document.getElementById('phone').value.trim();
-
-      if (!fname || !lname || !phone) {
-        alert('Gelieve alle verplichte velden in te vullen.');
-        return;
-      }
-
-      const date = document.getElementById('order-date').value;
-      const time = document.getElementById('order-time').value;
-
-      if (!date || !time) {
-        alert('Gelieve een datum en tijdstip te selecteren.');
-        return;
-      }
-
-      // Generate order reference
-      const ref = 'OB-' + Date.now().toString().slice(-6);
-      document.getElementById('orderRef').textContent = 'Ref: #' + ref;
-
-      confirmationOverlay.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    });
-
-    document.getElementById('closeConfirmBtn').addEventListener('click', () => {
-      confirmationOverlay.classList.remove('active');
-      document.body.style.overflow = '';
-      // Reset cart
-      Object.keys(cart).forEach(id => delete cart[id]);
-      document.querySelectorAll('.qty-value').forEach(el => el.textContent = '0');
-      document.querySelectorAll('.qty-minus').forEach(el => el.disabled = true);
-      updateCart();
-      checkoutForm.classList.remove('active');
-      document.getElementById('fname').value = '';
-      document.getElementById('lname').value = '';
-      document.getElementById('phone').value = '';
-      document.getElementById('email').value = '';
-      document.getElementById('address').value = '';
-      document.getElementById('notes').value = '';
-    });
-
-    // Close confirmation on overlay click
-    confirmationOverlay.addEventListener('click', (e) => {
-      if (e.target === confirmationOverlay) {
-        document.getElementById('closeConfirmBtn').click();
-      }
-    });
-
-    // Escape key to close confirmation
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && confirmationOverlay.classList.contains('active')) {
-        document.getElementById('closeConfirmBtn').click();
-      }
+      window.open('https://oudenberghoftakeaway.be', '_blank', 'noopener');
     });
   })();
   </script>
