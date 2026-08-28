@@ -1,0 +1,2317 @@
+<!DOCTYPE html>
+<html lang="nl-BE">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Bestel je maaltijd voor afhaal bij Taverne Oudenberghof — Het Strooien Dak in Geraardsbergen.">
+  <title>Afhaalmenu — Taverne Oudenberghof | Geraardsbergen</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>/* ============================================
+   TAVERNE OUDENBERGHOF — Herontwerp 2026
+   Donker, warm, premium palette
+   ============================================ */
+
+/* CSS Custom Properties */
+:root {
+  --bg-deep: #0a0807;
+  --bg-dark: #0f0c0a;
+  --bg-surface: #1a1512;
+  --bg-surface-light: #2d2420;
+  --bg-card: #231d18;
+  --accent-gold: #c9a96e;
+  --accent-gold-light: #e0c898;
+  --accent-amber: #d4a574;
+  --accent-warm: #b8956a;
+  --text-primary: #f5f0e8;
+  --text-secondary: #a89f91;
+  --text-muted: #6b5f55;
+  --text-faint: #4a423a;
+  --border-subtle: rgba(201, 169, 110, 0.12);
+  --border-medium: rgba(201, 169, 110, 0.25);
+  --shadow-glow: rgba(201, 169, 110, 0.08);
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  --font-serif: 'Playfair Display', 'Georgia', 'Times New Roman', serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Reset & Base */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-deep);
+  color: var(--text-primary);
+  line-height: 1.7;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Selection */
+::selection {
+  background: var(--accent-gold);
+  color: var(--bg-deep);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--bg-surface-light);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-gold);
+}
+
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--text-primary);
+}
+
+h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); }
+h2 { font-size: clamp(1.8rem, 4vw, 3rem); }
+h3 { font-size: clamp(1.3rem, 2.5vw, 1.8rem); }
+
+p {
+  color: var(--text-secondary);
+  max-width: 65ch;
+}
+
+a {
+  color: var(--accent-gold);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+a:hover {
+  color: var(--accent-gold-light);
+}
+
+/* ============================================
+   UTILITIES
+   ============================================ */
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.section {
+  padding: 6rem 0;
+  position: relative;
+}
+
+.section-alt {
+  background: var(--bg-surface);
+}
+
+.text-center { text-align: center; }
+.text-gold { color: var(--accent-gold); }
+.text-muted { color: var(--text-muted); }
+
+.divider {
+  width: 60px;
+  height: 1px;
+  background: var(--accent-gold);
+  margin: 1.5rem auto;
+  opacity: 0.6;
+}
+
+.divider-wide {
+  width: 120px;
+}
+
+/* Decorative flourish (SVG) */
+.flourish {
+  display: block;
+  margin: 1.5rem auto;
+  width: 80px;
+  height: 20px;
+  opacity: 0.5;
+}
+
+.flourish svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ============================================
+   NAVIGATION
+   ============================================ */
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 1rem 0;
+  transition: var(--transition);
+  background: transparent;
+}
+
+.nav.scrolled {
+  background: rgba(10, 8, 7, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 0.75rem 0;
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.nav-logo {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  color: var(--text-primary);
+  letter-spacing: 0.05em;
+}
+
+.nav-logo span {
+  color: var(--accent-gold);
+}
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+  align-items: center;
+}
+
+.nav-links a {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-secondary);
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--accent-gold);
+  transition: var(--transition);
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+.nav-links a:hover {
+  color: var(--text-primary);
+}
+
+.nav-cta {
+  background: var(--accent-gold);
+  color: var(--bg-deep) !important;
+  padding: 0.6rem 1.4rem;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: var(--transition);
+}
+
+.nav-cta:hover {
+  background: var(--accent-gold-light);
+  transform: translateY(-1px);
+}
+
+.nav-cta::after { display: none !important; }
+
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* ============================================
+   HERO
+   ============================================ */
+
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 700px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: brightness(0.45) saturate(0.85);
+  transform: scale(1.05);
+  transition: transform 8s ease-out;
+}
+
+.hero.loaded .hero-bg {
+  transform: scale(1);
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 8, 7, 0.3) 0%,
+    rgba(10, 8, 7, 0.1) 40%,
+    rgba(10, 8, 7, 0.5) 70%,
+    rgba(10, 8, 7, 0.95) 100%
+  );
+}
+
+.hero-vignette {
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 150px rgba(0,0,0,0.6);
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 0 1.5rem;
+  max-width: 800px;
+}
+
+.hero-wordmark {
+  margin-bottom: 1.5rem;
+}
+
+.hero-wordmark svg {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  margin: 0 auto;
+  display: block;
+}
+
+.hero-tagline {
+  font-family: var(--font-serif);
+  font-size: clamp(1rem, 2.5vw, 1.4rem);
+  color: var(--accent-gold);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  font-style: italic;
+}
+
+.hero-subtitle {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.08em;
+  margin-bottom: 2.5rem;
+}
+
+.hero-location {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-top: 2rem;
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  animation: bounce 2s infinite;
+}
+
+.hero-scroll svg {
+  width: 24px;
+  height: 24px;
+  stroke: var(--accent-gold);
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+  40% { transform: translateX(-50%) translateY(-8px); }
+  60% { transform: translateX(-50%) translateY(-4px); }
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.9rem 2rem;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: var(--transition);
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: var(--accent-gold);
+  color: var(--bg-deep);
+  border-color: var(--accent-gold);
+}
+
+.btn-primary:hover {
+  background: var(--accent-gold-light);
+  border-color: var(--accent-gold-light);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(201, 169, 110, 0.2);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--accent-gold);
+  border-color: var(--accent-gold);
+}
+
+.btn-outline:hover {
+  background: var(--accent-gold);
+  color: var(--bg-deep);
+  transform: translateY(-2px);
+}
+
+.btn-sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.75rem;
+}
+
+/* ============================================
+   SECTION HEADER
+   ============================================ */
+
+.section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.section-header h2 {
+  margin-bottom: 1rem;
+}
+
+.section-header p {
+  margin: 0 auto;
+  color: var(--text-secondary);
+  font-size: 1.05rem;
+}
+
+/* ============================================
+   ABOUT / SFEER
+   ============================================ */
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.about-text h2 {
+  margin-bottom: 1.5rem;
+}
+
+.about-text p {
+  margin-bottom: 1.2rem;
+  font-size: 1.05rem;
+}
+
+.about-text .highlight {
+  color: var(--accent-gold);
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  font-style: italic;
+  display: block;
+  margin: 1.5rem 0;
+  padding-left: 1.5rem;
+  border-left: 2px solid var(--accent-gold);
+}
+
+.about-image {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.about-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: saturate(0.85) contrast(1.05);
+  transition: var(--transition);
+}
+
+.about-image:hover img {
+  transform: scale(1.03);
+}
+
+.about-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(201,169,110,0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* ============================================
+   SPECIALTIES
+   ============================================ */
+
+.specialties-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.specialty-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.specialty-card:hover {
+  border-color: var(--border-medium);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+}
+
+.specialty-image {
+  height: 220px;
+  overflow: hidden;
+  position: relative;
+}
+
+.specialty-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.8) contrast(1.05);
+  transition: var(--transition);
+}
+
+.specialty-card:hover .specialty-image img {
+  transform: scale(1.05);
+  filter: saturate(0.9) contrast(1.05);
+}
+
+.specialty-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, var(--bg-card) 0%, transparent 40%);
+}
+
+.specialty-content {
+  padding: 1.5rem;
+}
+
+.specialty-content h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  color: var(--accent-gold-light);
+}
+
+.specialty-content p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ============================================
+   INFO / PRACTICAL
+   ============================================ */
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+
+.info-card {
+  text-align: center;
+  padding: 2rem 1.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  transition: var(--transition);
+}
+
+.info-card:hover {
+  border-color: var(--border-medium);
+  transform: translateY(-2px);
+}
+
+.info-icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 1rem;
+  color: var(--accent-gold);
+}
+
+.info-card h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.info-card p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0 auto;
+}
+
+.info-card a {
+  color: var(--accent-gold);
+  font-size: 0.9rem;
+}
+
+/* ============================================
+   LOCATION / MAP
+   ============================================ */
+
+.location-section {
+  background: var(--bg-surface);
+}
+
+.location-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 3rem;
+  align-items: stretch;
+}
+
+.location-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.location-info h2 {
+  margin-bottom: 1.5rem;
+}
+
+.location-info p {
+  margin-bottom: 1.2rem;
+  font-size: 1.05rem;
+}
+
+.location-detail {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+}
+
+.location-detail svg {
+  width: 20px;
+  height: 20px;
+  color: var(--accent-gold);
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+}
+
+.location-detail div strong {
+  color: var(--text-primary);
+  font-weight: 500;
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.location-detail div span {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.map-container {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  height: 100%;
+  min-height: 400px;
+}
+
+.map-container iframe {
+  width: 100%;
+  height: 100%;
+  min-height: 400px;
+  border: 0;
+  filter: grayscale(0.3) contrast(1.1) brightness(0.9);
+}
+
+.map-container { position: relative; }
+.map-container iframe {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.map-container iframe.is-loaded { opacity: 1; }
+.map-container:has(iframe.is-loaded) .map-fallback { display: none; }
+.map-fallback {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  height: 100%;
+  min-height: 400px;
+  padding: 2rem;
+  text-align: center;
+  background:
+    radial-gradient(circle at 25% 20%, rgba(201, 169, 110, 0.08), transparent 55%),
+    var(--bg-card);
+}
+.map-fallback svg { width: 40px; height: 40px; color: var(--accent-gold); }
+.map-fallback strong { font-family: var(--font-serif); font-size: 1.3rem; color: var(--text-primary); }
+.map-fallback span { color: var(--text-secondary); font-size: 0.9rem; }
+
+/* ============================================
+   FOOTER
+   ============================================ */
+
+.footer {
+  background: var(--bg-deep);
+  border-top: 1px solid var(--border-subtle);
+  padding: 4rem 0 2rem;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 3rem;
+}
+
+.footer-brand {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.footer-brand span {
+  color: var(--accent-gold);
+}
+
+.footer-desc {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  max-width: 300px;
+}
+
+.footer-col h4 {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+}
+
+.footer-col ul {
+  list-style: none;
+}
+
+.footer-col li {
+  margin-bottom: 0.75rem;
+}
+
+.footer-col a {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  transition: var(--transition);
+}
+
+.footer-col a:hover {
+  color: var(--accent-gold);
+}
+
+.footer-bottom {
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.footer-bottom p {
+  color: var(--text-faint);
+  font-size: 0.8rem;
+}
+
+/* ============================================
+   BESTELPAGINA — ORDER PAGE
+   ============================================ */
+
+.order-page {
+  padding-top: 80px;
+  min-height: 100vh;
+}
+
+.order-header {
+  background: var(--bg-surface);
+  padding: 3rem 0;
+  text-align: center;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.order-header h1 {
+  margin-bottom: 0.5rem;
+}
+
+.order-header p {
+  color: var(--text-secondary);
+}
+
+.order-layout {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 3rem;
+  padding: 3rem 0;
+}
+
+/* Menu categories */
+.menu-category {
+  margin-bottom: 3rem;
+}
+
+.menu-category-title {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  color: var(--accent-gold);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.menu-category-title svg {
+  width: 24px;
+  height: 24px;
+}
+
+.menu-items {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.menu-item {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 1.5rem;
+  align-items: center;
+  padding: 1.25rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  transition: var(--transition);
+}
+
+.menu-item:hover {
+  border-color: var(--border-medium);
+}
+
+.menu-item-info h4 {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.menu-item-info p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.menu-item-price {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  color: var(--accent-gold);
+  white-space: nowrap;
+}
+
+.menu-item-price .no-price {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-family: var(--font-sans);
+  font-style: italic;
+}
+
+.menu-item-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.qty-stepper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.qty-stepper button {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--border-medium);
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+
+.qty-stepper button:hover:not(:disabled) {
+  background: var(--accent-gold);
+  color: var(--bg-deep);
+  border-color: var(--accent-gold);
+}
+
+.qty-stepper button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.qty-stepper .qty-value {
+  min-width: 24px;
+  text-align: center;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+/* Cart sidebar */
+.cart-sidebar {
+  position: sticky;
+  top: 100px;
+  height: fit-content;
+}
+
+.cart-panel {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+}
+
+.cart-panel h3 {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cart-panel h3 svg {
+  width: 20px;
+  height: 20px;
+  color: var(--accent-gold);
+}
+
+.cart-empty {
+  text-align: center;
+  padding: 2rem 0;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.cart-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  background: var(--bg-surface);
+  border-radius: var(--radius-sm);
+}
+
+.cart-item-info {
+  flex: 1;
+}
+
+.cart-item-info h5 {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 0.15rem;
+}
+
+.cart-item-info span {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.cart-item-price {
+  font-family: var(--font-serif);
+  color: var(--accent-gold);
+  font-size: 0.95rem;
+}
+
+.cart-item-remove {
+  background: none;
+  border: none;
+  color: var(--text-faint);
+  cursor: pointer;
+  padding: 0.25rem;
+  margin-left: 0.5rem;
+  transition: var(--transition);
+}
+
+.cart-item-remove:hover {
+  color: #c44;
+}
+
+.cart-divider {
+  height: 1px;
+  background: var(--border-subtle);
+  margin: 1rem 0;
+}
+
+.cart-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.cart-total span:first-child {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.cart-total span:last-child {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  color: var(--accent-gold);
+}
+
+/* Order type toggle */
+.order-type {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.order-type-btn {
+  flex: 1;
+  padding: 0.75rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 0.85rem;
+  text-align: center;
+  transition: var(--transition);
+}
+
+.order-type-btn.active {
+  background: var(--accent-gold);
+  color: var(--bg-deep);
+  border-color: var(--accent-gold);
+  font-weight: 500;
+}
+
+.order-type-btn:hover:not(.active) {
+  border-color: var(--border-medium);
+  color: var(--text-primary);
+}
+
+/* Date/time picker */
+.datetime-picker {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.datetime-picker label {
+  display: block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  margin-bottom: 0.4rem;
+}
+
+.datetime-picker input,
+.datetime-picker select {
+  width: 100%;
+  padding: 0.6rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  outline: none;
+  transition: var(--transition);
+}
+
+.datetime-picker input:focus,
+.datetime-picker select:focus {
+  border-color: var(--accent-gold);
+}
+
+.datetime-picker input[type="date"]::-webkit-calendar-picker-indicator,
+.datetime-picker input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.7);
+  cursor: pointer;
+}
+
+/* Checkout form */
+.checkout-form {
+  display: none;
+}
+
+.checkout-form.active {
+  display: block;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  margin-bottom: 0.4rem;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 0.7rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  outline: none;
+  transition: var(--transition);
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: var(--accent-gold);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+/* Confirmation overlay */
+.confirmation-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 8, 7, 0.92);
+  backdrop-filter: blur(8px);
+  z-index: 2000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.confirmation-overlay.active {
+  display: flex;
+}
+
+.confirmation-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-lg);
+  padding: 3rem;
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+  animation: slideUp 0.4s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.confirmation-card svg {
+  width: 64px;
+  height: 64px;
+  color: var(--accent-gold);
+  margin-bottom: 1.5rem;
+}
+
+.confirmation-card h2 {
+  margin-bottom: 1rem;
+}
+
+.confirmation-card p {
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.confirmation-card .order-ref {
+  font-family: var(--font-serif);
+  color: var(--accent-gold);
+  font-size: 1.2rem;
+  margin: 1rem 0;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 1024px) {
+  .order-layout {
+    grid-template-columns: 1fr;
+  }
+  .cart-sidebar {
+    position: static;
+    order: -1;
+  }
+  .specialties-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .info-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(10, 8, 7, 0.98);
+    flex-direction: column;
+    padding: 1.5rem;
+    gap: 1.5rem;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .nav-links.active {
+    display: flex;
+  }
+  .nav-toggle {
+    display: block;
+  }
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .specialties-grid {
+    grid-template-columns: 1fr;
+  }
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+  .location-grid {
+    grid-template-columns: 1fr;
+  }
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .menu-item {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  .menu-item-actions {
+    justify-content: flex-end;
+  }
+  .datetime-picker {
+    grid-template-columns: 1fr;
+  }
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  .section {
+    padding: 4rem 0;
+  }
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Focus styles */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--accent-gold);
+  outline-offset: 2px;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stagger-1 { transition-delay: 0.1s; }
+.stagger-2 { transition-delay: 0.2s; }
+.stagger-3 { transition-delay: 0.3s; }
+.stagger-4 { transition-delay: 0.4s; }
+</style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav scrolled" id="navbar" role="navigation" aria-label="Hoofdnavigatie">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Oudenberghof</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu openen" aria-expanded="false" aria-controls="navLinks">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html#sfeer">Sfeer</a></li>
+        <li><a href="index.html#specialiteiten">Specialiteiten</a></li>
+        <li><a href="index.html#praktisch">Praktisch</a></li>
+        <li><a href="index.html#locatie">Locatie</a></li>
+        <li><a href="bestel.html" class="nav-cta">Afhaalmenu</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="order-page">
+    <!-- Header -->
+    <div class="order-header">
+      <div class="container">
+        <h1>Afhaalmenu</h1>
+        <div class="divider"></div>
+        <p>Bestel je maaltijd online en haal hem op het gewenste tijdstip af bij het Strooien Dak</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="order-layout">
+        <!-- Menu -->
+        <div class="menu-section">
+
+          <!-- Hoofdgerechten -->
+          <div class="menu-category">
+            <h2 class="menu-category-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+                <path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m-16.9 0c2.01-8.3 3.66-11.69 8.03-17.72"/>
+                <path d="M12 2v20"/>
+              </svg>
+              Hoofdgerechten
+            </h2>
+            <div class="menu-items">
+
+              <div class="menu-item" data-id="brochette" data-name="Brochette van varkensvlees" data-price="23.80">
+                <div class="menu-item-info">
+                  <h4>Brochette van varkensvlees</h4>
+                  <p>350 gram, vergezeld van een fris slaatje, verse frietjes, cocktailsaus en zigeunersaus</p>
+                </div>
+                <div class="menu-item-price">€ 23,80</div>
+                <div class="menu-item-actions">
+                  <div class="qty-stepper">
+                    <button type="button" class="qty-minus" aria-label="Aantal verminderen">−</button>
+                    <span class="qty-value">0</span>
+                    <button type="button" class="qty-plus" aria-label="Aantal verhogen">+</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="menu-item" data-id="steak-natuur" data-name="Steak natuur" data-price="35.90">
+                <div class="menu-item-info">
+                  <h4>Steak natuur</h4>
+                  <p>250 gram met natuursaus, vergezeld van een fris slaatje, mayonaise en verse frietjes</p>
+                </div>
+                <div class="menu-item-price">€ 35,90</div>
+                <div class="menu-item-actions">
+                  <div class="qty-stepper">
+                    <button type="button" class="qty-minus" aria-label="Aantal verminderen">−</button>
+                    <span class="qty-value">0</span>
+                    <button type="button" class="qty-plus" aria-label="Aantal verhogen">+</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="menu-item" data-id="steak-champignon" data-name="Steak champignon-roomsaus" data-price="0">
+                <div class="menu-item-info">
+                  <h4>Steak champignon-roomsaus</h4>
+                  <p>250 gram, vergezeld van een fris slaatje, mayonaise en verse frietjes</p>
+                </div>
+                <div class="menu-item-price"><span class="no-price">Prijs op aanvraag</span></div>
+                <div class="menu-item-actions">
+                  <div class="qty-stepper">
+                    <button type="button" class="qty-minus" disabled aria-label="Aantal verminderen">−</button>
+                    <span class="qty-value">0</span>
+                    <button type="button" class="qty-plus" disabled aria-label="Aantal verhogen">+</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="menu-item" data-id="steak-peper" data-name="Steak peperroomsaus" data-price="0">
+                <div class="menu-item-info">
+                  <h4>Steak peperroomsaus</h4>
+                  <p>250 gram, vergezeld van een fris slaatje, mayonaise en verse frietjes</p>
+                </div>
+                <div class="menu-item-price"><span class="no-price">Prijs op aanvraag</span></div>
+                <div class="menu-item-actions">
+                  <div class="qty-stepper">
+                    <button type="button" class="qty-minus" disabled aria-label="Aantal verminderen">−</button>
+                    <span class="qty-value">0</span>
+                    <button type="button" class="qty-plus" disabled aria-label="Aantal verhogen">+</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="menu-item" data-id="steak-bearnaise" data-name="Steak béarnaise" data-price="0">
+                <div class="menu-item-info">
+                  <h4>Steak béarnaise</h4>
+                  <p>250 gram met béarnaisesaus, vergezeld van een fris slaatje, mayonaise en verse frietjes</p>
+                </div>
+                <div class="menu-item-price"><span class="no-price">Prijs op aanvraag</span></div>
+                <div class="menu-item-actions">
+                  <div class="qty-stepper">
+                    <button type="button" class="qty-minus" disabled aria-label="Aantal verminderen">−</button>
+                    <span class="qty-value">0</span>
+                    <button type="button" class="qty-plus" disabled aria-label="Aantal verhogen">+</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="menu-item" data-id="steak-provencale" data-name="Steak Provençale" data-price="0">
+                <div class="menu-item-info">
+                  <h4>Steak Provençale</h4>
+                  <p>250 gram met Provençaalse saus, vergezeld van een fris slaatje, mayonaise en verse frietjes</p>
+                </div>
+                <div class="menu-item-price"><span class="no-price">Prijs op aanvraag</span></div>
+                <div class="menu-item-actions">
+                  <div class="qty-stepper">
+                    <button type="button" class="qty-minus" disabled aria-label="Aantal verminderen">−</button>
+                    <span class="qty-value">0</span>
+                    <button type="button" class="qty-plus" disabled aria-label="Aantal verhogen">+</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="menu-item" data-id="stoofvlees" data-name="Stoofvlees met frietjes" data-price="0">
+                <div class="menu-item-info">
+                  <h4>Stoofvlees met frietjes</h4>
+                  <p>Huisbereid stoofvlees van runderwangen, gemaakt met Pater Lieven donker. Vergezeld van een fris slaatje en frietjes</p>
+                </div>
+                <div class="menu-item-price"><span class="no-price">Prijs op aanvraag</span></div>
+                <div class="menu-item-actions">
+                  <div class="qty-stepper">
+                    <button type="button" class="qty-minus" disabled aria-label="Aantal verminderen">−</button>
+                    <span class="qty-value">0</span>
+                    <button type="button" class="qty-plus" disabled aria-label="Aantal verhogen">+</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="menu-item" data-id="paling" data-name="Paling in het groen" data-price="0">
+                <div class="menu-item-info">
+                  <h4>Paling in het groen</h4>
+                  <p>Huisbereide paling in het groen, vergezeld van verse frietjes. Bij koude afhaal worden voorgebakken frietjes voorzien</p>
+                </div>
+                <div class="menu-item-price"><span class="no-price">Prijs op aanvraag</span></div>
+                <div class="menu-item-actions">
+                  <div class="qty-stepper">
+                    <button type="button" class="qty-minus" disabled aria-label="Aantal verminderen">−</button>
+                    <span class="qty-value">0</span>
+                    <button type="button" class="qty-plus" disabled aria-label="Aantal verhogen">+</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="menu-item" data-id="vol-au-vent" data-name="Vol au vent" data-price="0">
+                <div class="menu-item-info">
+                  <h4>Vol au vent</h4>
+                  <p>Huisbereide vol au vent, vergezeld van een fris slaatje, mayonaise en verse frietjes</p>
+                </div>
+                <div class="menu-item-price"><span class="no-price">Prijs op aanvraag</span></div>
+                <div class="menu-item-actions">
+                  <div class="qty-stepper">
+                    <button type="button" class="qty-minus" disabled aria-label="Aantal verminderen">−</button>
+                    <span class="qty-value">0</span>
+                    <button type="button" class="qty-plus" disabled aria-label="Aantal verhogen">+</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="menu-item" data-id="balletjes" data-name="Balletjes in tomatensaus" data-price="0">
+                <div class="menu-item-info">
+                  <h4>Balletjes in tomatensaus</h4>
+                  <p>Huisbereide balletjes in tomatensaus, vergezeld van een fris slaatje, mayonaise en verse frietjes</p>
+                </div>
+                <div class="menu-item-price"><span class="no-price">Prijs op aanvraag</span></div>
+                <div class="menu-item-actions">
+                  <div class="qty-stepper">
+                    <button type="button" class="qty-minus" disabled aria-label="Aantal verminderen">−</button>
+                    <span class="qty-value">0</span>
+                    <button type="button" class="qty-plus" disabled aria-label="Aantal verhogen">+</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="menu-item" data-id="spaghetti-bolognaise" data-name="Spaghetti bolognaise" data-price="0">
+                <div class="menu-item-info">
+                  <h4>Spaghetti bolognaise</h4>
+                  <p>Huisbereide spaghetti bolognaise</p>
+                </div>
+                <div class="menu-item-price"><span class="no-price">Prijs op aanvraag</span></div>
+                <div class="menu-item-actions">
+                  <div class="qty-stepper">
+                    <button type="button" class="qty-minus" disabled aria-label="Aantal verminderen">−</button>
+                    <span class="qty-value">0</span>
+                    <button type="button" class="qty-plus" disabled aria-label="Aantal verhogen">+</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="menu-item" data-id="scampi-maison" data-name="Scampi maison" data-price="0">
+                <div class="menu-item-info">
+                  <h4>Scampi maison</h4>
+                  <p>9 scampi’s met een licht pikante tomatenroomsaus. Bijgerecht naar keuze</p>
+                </div>
+                <div class="menu-item-price"><span class="no-price">Prijs op aanvraag</span></div>
+                <div class="menu-item-actions">
+                  <div class="qty-stepper">
+                    <button type="button" class="qty-minus" disabled aria-label="Aantal verminderen">−</button>
+                    <span class="qty-value">0</span>
+                    <button type="button" class="qty-plus" disabled aria-label="Aantal verhogen">+</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="menu-item" data-id="scampi-look" data-name="Scampi look" data-price="0">
+                <div class="menu-item-info">
+                  <h4>Scampi look</h4>
+                  <p>9 scampi’s met een looksausje. Bijgerecht naar keuze</p>
+                </div>
+                <div class="menu-item-price"><span class="no-price">Prijs op aanvraag</span></div>
+                <div class="menu-item-actions">
+                  <div class="qty-stepper">
+                    <button type="button" class="qty-minus" disabled aria-label="Aantal verminderen">−</button>
+                    <span class="qty-value">0</span>
+                    <button type="button" class="qty-plus" disabled aria-label="Aantal verhogen">+</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="menu-item" data-id="garnaalkroketten" data-name="Artisanale garnaalkroketten (2 stuks)" data-price="0">
+                <div class="menu-item-info">
+                  <h4>Artisanale garnaalkroketten</h4>
+                  <p>2 stuks, vergezeld van een fris slaatje, mayonaise en verse frietjes</p>
+                </div>
+                <div class="menu-item-price"><span class="no-price">Prijs op aanvraag</span></div>
+                <div class="menu-item-actions">
+                  <div class="qty-stepper">
+                    <button type="button" class="qty-minus" disabled aria-label="Aantal verminderen">−</button>
+                    <span class="qty-value">0</span>
+                    <button type="button" class="qty-plus" disabled aria-label="Aantal verhogen">+</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="menu-item" data-id="kaaskroketten" data-name="Kaaskroketten (2 stuks)" data-price="0">
+                <div class="menu-item-info">
+                  <h4>Kaaskroketten</h4>
+                  <p>2 stuks, vergezeld van een fris slaatje, mayonaise en verse frietjes</p>
+                </div>
+                <div class="menu-item-price"><span class="no-price">Prijs op aanvraag</span></div>
+                <div class="menu-item-actions">
+                  <div class="qty-stepper">
+                    <button type="button" class="qty-minus" disabled aria-label="Aantal verminderen">−</button>
+                    <span class="qty-value">0</span>
+                    <button type="button" class="qty-plus" disabled aria-label="Aantal verhogen">+</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bereidingen (koud) -->
+          <div class="menu-category">
+            <h2 class="menu-category-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+                <path d="M12 2v20M2 12h20"/>
+              </svg>
+              Bereidingen (koud / per kg)
+            </h2>
+            <div class="menu-items">
+
+              <div class="menu-item" data-id="spaghettisaus-kg" data-name="Spaghettisaus (per kg)" data-price="15.00">
+                <div class="menu-item-info">
+                  <h4>Spaghettisaus</h4>
+                  <p>Huisbereide, overheerlijke spaghettisaus — per kilogram</p>
+                </div>
+                <div class="menu-item-price">€ 15,00 / kg</div>
+                <div class="menu-item-actions">
+                  <div class="qty-stepper">
+                    <button type="button" class="qty-minus" aria-label="Aantal verminderen">−</button>
+                    <span class="qty-value">0</span>
+                    <button type="button" class="qty-plus" aria-label="Aantal verhogen">+</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="menu-item" data-id="vol-au-vent-kg" data-name="Vol au vent (per kg)" data-price="17.50">
+                <div class="menu-item-info">
+                  <h4>Vol au vent</h4>
+                  <p>Huisbereide, overheerlijke vol au vent — per kilogram</p>
+                </div>
+                <div class="menu-item-price">€ 17,50 / kg</div>
+                <div class="menu-item-actions">
+                  <div class="qty-stepper">
+                    <button type="button" class="qty-minus" aria-label="Aantal verminderen">−</button>
+                    <span class="qty-value">0</span>
+                    <button type="button" class="qty-plus" aria-label="Aantal verhogen">+</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="menu-item" data-id="balletjes-kg" data-name="Balletjes in tomatensaus (per kg)" data-price="14.00">
+                <div class="menu-item-info">
+                  <h4>Balletjes in tomatensaus</h4>
+                  <p>Huisbereide balletjes in tomatensaus — per kilogram</p>
+                </div>
+                <div class="menu-item-price">€ 14,00 / kg</div>
+                <div class="menu-item-actions">
+                  <div class="qty-stepper">
+                    <button type="button" class="qty-minus" aria-label="Aantal verminderen">−</button>
+                    <span class="qty-value">0</span>
+                    <button type="button" class="qty-plus" aria-label="Aantal verhogen">+</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="menu-item" data-id="stoofvlees-kg" data-name="Stoofvlees (per kg)" data-price="18.00">
+                <div class="menu-item-info">
+                  <h4>Stoofvlees</h4>
+                  <p>Huisbereid stoofvlees van runderwangen, bereid met Pater Lieven donker — per kilogram</p>
+                </div>
+                <div class="menu-item-price">€ 18,00 / kg</div>
+                <div class="menu-item-actions">
+                  <div class="qty-stepper">
+                    <button type="button" class="qty-minus" aria-label="Aantal verminderen">−</button>
+                    <span class="qty-value">0</span>
+                    <button type="button" class="qty-plus" aria-label="Aantal verhogen">+</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Extra porties -->
+          <div class="menu-category">
+            <h2 class="menu-category-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+              </svg>
+              Extra porties
+            </h2>
+            <div class="menu-items">
+
+              <div class="menu-item" data-id="frietjes" data-name="Frietjes" data-price="0">
+                <div class="menu-item-info">
+                  <h4>Frietjes</h4>
+                  <p>Verse frietjes</p>
+                </div>
+                <div class="menu-item-price"><span class="no-price">Prijs op aanvraag</span></div>
+                <div class="menu-item-actions">
+                  <div class="qty-stepper">
+                    <button type="button" class="qty-minus" disabled aria-label="Aantal verminderen">−</button>
+                    <span class="qty-value">0</span>
+                    <button type="button" class="qty-plus" disabled aria-label="Aantal verhogen">+</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="menu-item" data-id="kroketten" data-name="Kroketten" data-price="0">
+                <div class="menu-item-info">
+                  <h4>Kroketten</h4>
+                  <p>Extra portie kroketten</p>
+                </div>
+                <div class="menu-item-price"><span class="no-price">Prijs op aanvraag</span></div>
+                <div class="menu-item-actions">
+                  <div class="qty-stepper">
+                    <button type="button" class="qty-minus" disabled aria-label="Aantal verminderen">−</button>
+                    <span class="qty-value">0</span>
+                    <button type="button" class="qty-plus" disabled aria-label="Aantal verhogen">+</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="menu-item" data-id="mayonaise" data-name="Mayonaise" data-price="0">
+                <div class="menu-item-info">
+                  <h4>Mayonaise</h4>
+                </div>
+                <div class="menu-item-price"><span class="no-price">Prijs op aanvraag</span></div>
+                <div class="menu-item-actions">
+                  <div class="qty-stepper">
+                    <button type="button" class="qty-minus" disabled aria-label="Aantal verminderen">−</button>
+                    <span class="qty-value">0</span>
+                    <button type="button" class="qty-plus" disabled aria-label="Aantal verhogen">+</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="menu-item" data-id="peperroomsaus" data-name="Peperroomsaus" data-price="0">
+                <div class="menu-item-info">
+                  <h4>Peperroomsaus</h4>
+                </div>
+                <div class="menu-item-price"><span class="no-price">Prijs op aanvraag</span></div>
+                <div class="menu-item-actions">
+                  <div class="qty-stepper">
+                    <button type="button" class="qty-minus" disabled aria-label="Aantal verminderen">−</button>
+                    <span class="qty-value">0</span>
+                    <button type="button" class="qty-plus" disabled aria-label="Aantal verhogen">+</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="menu-item" data-id="champignonroomsaus" data-name="Champignonroomsaus" data-price="0">
+                <div class="menu-item-info">
+                  <h4>Champignonroomsaus</h4>
+                </div>
+                <div class="menu-item-price"><span class="no-price">Prijs op aanvraag</span></div>
+                <div class="menu-item-actions">
+                  <div class="qty-stepper">
+                    <button type="button" class="qty-minus" disabled aria-label="Aantal verminderen">−</button>
+                    <span class="qty-value">0</span>
+                    <button type="button" class="qty-plus" disabled aria-label="Aantal verhogen">+</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="menu-item" data-id="provencaalse-saus" data-name="Provençaalse saus" data-price="0">
+                <div class="menu-item-info">
+                  <h4>Provençaalse saus</h4>
+                </div>
+                <div class="menu-item-price"><span class="no-price">Prijs op aanvraag</span></div>
+                <div class="menu-item-actions">
+                  <div class="qty-stepper">
+                    <button type="button" class="qty-minus" disabled aria-label="Aantal verminderen">−</button>
+                    <span class="qty-value">0</span>
+                    <button type="button" class="qty-plus" disabled aria-label="Aantal verhogen">+</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="menu-item" data-id="bearnaisesaus" data-name="Béarnaisesaus" data-price="0">
+                <div class="menu-item-info">
+                  <h4>Béarnaisesaus</h4>
+                </div>
+                <div class="menu-item-price"><span class="no-price">Prijs op aanvraag</span></div>
+                <div class="menu-item-actions">
+                  <div class="qty-stepper">
+                    <button type="button" class="qty-minus" disabled aria-label="Aantal verminderen">−</button>
+                    <span class="qty-value">0</span>
+                    <button type="button" class="qty-plus" disabled aria-label="Aantal verhogen">+</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="menu-item" data-id="gemalen-kaas" data-name="Gemalen kaas" data-price="0">
+                <div class="menu-item-info">
+                  <h4>Gemalen kaas</h4>
+                </div>
+                <div class="menu-item-price"><span class="no-price">Prijs op aanvraag</span></div>
+                <div class="menu-item-actions">
+                  <div class="qty-stepper">
+                    <button type="button" class="qty-minus" disabled aria-label="Aantal verminderen">−</button>
+                    <span class="qty-value">0</span>
+                    <button type="button" class="qty-plus" disabled aria-label="Aantal verhogen">+</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 2rem; padding: 1rem; background: var(--bg-card); border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 0.5rem;" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" y1="8" x2="12" y2="12"/>
+              <line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            <strong>Let op:</strong> Enkel de prijzen die op deze pagina staan vermeld, zijn geverifieerd via
+            <em>oudenberghoftakeaway.be</em>. Overige prijzen zijn beschikbaar via telefoon
+            <a href="tel:054412854">054/41 28 54</a>. Enkele gerechtomschrijvingen (grammages,
+            bijgerechten) konden niet onafhankelijk bevestigd worden — te controleren bij de
+            zaak vóór lancering. Alle afbeeldingen op de huidige site zijn louter ter informatie.
+          </p>
+        </div>
+
+        <!-- Cart Sidebar -->
+        <aside class="cart-sidebar" aria-label="Winkelmandje">
+          <div class="cart-panel">
+            <h3>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+                <line x1="3" y1="6" x2="21" y2="6"/>
+                <path d="M16 10a4 4 0 0 1-8 0"/>
+              </svg>
+              Jouw bestelling
+            </h3>
+
+            <div class="order-type" role="radiogroup" aria-label="Type bestelling">
+              <button type="button" class="order-type-btn active" data-type="afhalen" role="radio" aria-checked="true">Afhalen</button>
+              <button type="button" class="order-type-btn" data-type="levering" role="radio" aria-checked="false">Levering</button>
+            </div>
+
+            <div class="datetime-picker">
+              <div>
+                <label for="order-date">Datum</label>
+                <input type="date" id="order-date" required>
+              </div>
+              <div>
+                <label for="order-time">Tijdstip</label>
+                <input type="time" id="order-time" min="11:30" max="20:30" required>
+              </div>
+            </div>
+
+            <div class="cart-items" id="cartItems">
+              <div class="cart-empty">Je winkelmandje is nog leeg</div>
+            </div>
+
+            <div class="cart-divider"></div>
+
+            <div class="cart-total">
+              <span>Totaal</span>
+              <span id="cartTotal">€ 0,00</span>
+            </div>
+
+            <button type="button" class="btn btn-primary" id="checkoutBtn" style="width: 100%;" disabled>
+              Ga naar afrekenen
+            </button>
+          </div>
+
+          <!-- Checkout Form -->
+          <div class="cart-panel checkout-form" id="checkoutForm" style="margin-top: 1rem;">
+            <h3 style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem;">Gegevens</h3>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="fname">Voornaam *</label>
+                <input type="text" id="fname" required>
+              </div>
+              <div class="form-group">
+                <label for="lname">Achternaam *</label>
+                <input type="text" id="lname" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Telefoon *</label>
+              <input type="tel" id="phone" required>
+            </div>
+
+            <div class="form-group">
+              <label for="email">E-mail</label>
+              <input type="email" id="email">
+            </div>
+
+            <div class="form-group" id="addressGroup" style="display: none;">
+              <label for="address">Adres (voor levering)</label>
+              <input type="text" id="address" placeholder="Straat, huisnummer, postcode, gemeente">
+            </div>
+
+            <div class="form-group">
+              <label for="notes">Opmerkingen</label>
+              <textarea id="notes" placeholder="Allergieën, speciale wensen..."></textarea>
+            </div>
+
+            <button type="button" class="btn btn-primary" id="placeOrderBtn" style="width: 100%;">
+              Plaats bestelling
+            </button>
+            <button type="button" class="btn btn-outline" id="cancelCheckoutBtn" style="width: 100%; margin-top: 0.5rem;">
+              Annuleren
+            </button>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <!-- Confirmation Overlay -->
+  <div class="confirmation-overlay" id="confirmationOverlay" role="dialog" aria-modal="true" aria-labelledby="confirmTitle" aria-describedby="confirmDesc">
+    <div class="confirmation-card">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+        <polyline points="22 4 12 14.01 9 11.01"/>
+      </svg>
+      <h2 id="confirmTitle">Bedankt voor je bestelling!</h2>
+      <p id="confirmDesc">We hebben je bestelling ontvangen en bereiden deze voor op het gekozen tijdstip.</p>
+      <p class="order-ref" id="orderRef">Ref: #OB-000000</p>
+      <p style="font-size: 0.9rem; color: var(--text-muted);">
+        Een bevestiging is verstuurd naar het opgegeven e-mailadres.<br>
+        Voor vragen: <a href="tel:054412854">054/41 28 54</a>
+      </p>
+      <button type="button" class="btn btn-primary" id="closeConfirmBtn" style="margin-top: 1.5rem;">
+        Sluiten
+      </button>
+    </div>
+  </div>
+
+  <script>/* ============================================
+   TAVERNE OUDENBERGHOF — Main JavaScript
+   ============================================ */
+
+document.addEventListener('DOMContentLoaded', function() {
+
+  // ==========================================
+  // Navigation scroll effect
+  // ==========================================
+  const navbar = document.getElementById('navbar');
+
+  function updateNav() {
+    if (window.scrollY > 50) {
+      navbar.classList.add('scrolled');
+    } else {
+      // Only remove if we're on the homepage (hero exists)
+      if (document.getElementById('hero')) {
+        navbar.classList.remove('scrolled');
+      }
+    }
+  }
+
+  updateNav();
+  window.addEventListener('scroll', updateNav, { passive: true });
+
+  // ==========================================
+  // Mobile menu toggle
+  // ==========================================
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+
+  if (navToggle && navLinks) {
+    navToggle.addEventListener('click', function() {
+      const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
+      navToggle.setAttribute('aria-expanded', !isExpanded);
+      navLinks.classList.toggle('active');
+    });
+
+    // Close menu when clicking a link
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navToggle.setAttribute('aria-expanded', 'false');
+        navLinks.classList.remove('active');
+      });
+    });
+  }
+
+  // ==========================================
+  // Hero load animation
+  // ==========================================
+  const hero = document.getElementById('hero');
+  if (hero) {
+    // Trigger after a brief delay to ensure image starts loading
+    setTimeout(() => {
+      hero.classList.add('loaded');
+    }, 100);
+  }
+
+  // ==========================================
+  // Scroll animations (Intersection Observer)
+  // ==========================================
+  const fadeElements = document.querySelectorAll('.fade-in');
+
+  if (fadeElements.length > 0 && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    fadeElements.forEach(el => observer.observe(el));
+  } else {
+    // Fallback for older browsers
+    fadeElements.forEach(el => el.classList.add('visible'));
+  }
+
+  // ==========================================
+  // Smooth scroll for anchor links
+  // ==========================================
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const href = this.getAttribute('href');
+      if (href === '#') return;
+
+      const target = document.querySelector(href);
+      if (target) {
+        e.preventDefault();
+        const navHeight = navbar ? navbar.offsetHeight : 0;
+        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight - 20;
+
+        window.scrollTo({
+          top: targetPosition,
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+
+  // ==========================================
+  // Hero scroll indicator hide on scroll
+  // ==========================================
+  const heroScroll = document.querySelector('.hero-scroll');
+  if (heroScroll) {
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 100) {
+        heroScroll.style.opacity = '0';
+        heroScroll.style.pointerEvents = 'none';
+      } else {
+        heroScroll.style.opacity = '1';
+        heroScroll.style.pointerEvents = 'auto';
+      }
+    }, { passive: true });
+  }
+
+});
+</script>
+  <script>
+  // Order page specific JavaScript
+  (function() {
+    const cart = {};
+    const cartItemsEl = document.getElementById('cartItems');
+    const cartTotalEl = document.getElementById('cartTotal');
+    const checkoutBtn = document.getElementById('checkoutBtn');
+    const checkoutForm = document.getElementById('checkoutForm');
+    const confirmationOverlay = document.getElementById('confirmationOverlay');
+    const orderTypeBtns = document.querySelectorAll('.order-type-btn');
+    const addressGroup = document.getElementById('addressGroup');
+
+    // Set default date to today
+    const dateInput = document.getElementById('order-date');
+    const today = new Date().toISOString().split('T')[0];
+    dateInput.value = today;
+    dateInput.min = today;
+
+    // Set default time
+    const timeInput = document.getElementById('order-time');
+    timeInput.value = '18:00';
+
+    // Order type toggle
+    orderTypeBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        orderTypeBtns.forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-checked', 'false');
+        });
+        btn.classList.add('active');
+        btn.setAttribute('aria-checked', 'true');
+
+        if (btn.dataset.type === 'levering') {
+          addressGroup.style.display = 'block';
+        } else {
+          addressGroup.style.display = 'none';
+        }
+      });
+    });
+
+    // Quantity steppers
+    document.querySelectorAll('.menu-item').forEach(item => {
+      const price = parseFloat(item.dataset.price);
+      const id = item.dataset.id;
+      const name = item.dataset.name;
+      const minusBtn = item.querySelector('.qty-minus');
+      const plusBtn = item.querySelector('.qty-plus');
+      const qtyValue = item.querySelector('.qty-value');
+
+      if (!price) return; // Skip items without price
+
+      plusBtn.addEventListener('click', () => {
+        if (!cart[id]) cart[id] = { name, price, qty: 0 };
+        cart[id].qty++;
+        qtyValue.textContent = cart[id].qty;
+        minusBtn.disabled = false;
+        updateCart();
+      });
+
+      minusBtn.addEventListener('click', () => {
+        if (!cart[id] || cart[id].qty <= 0) return;
+        cart[id].qty--;
+        qtyValue.textContent = cart[id].qty;
+        if (cart[id].qty === 0) {
+          delete cart[id];
+          minusBtn.disabled = true;
+        }
+        updateCart();
+      });
+    });
+
+    function updateCart() {
+      const items = Object.values(cart).filter(i => i.qty > 0);
+
+      if (items.length === 0) {
+        cartItemsEl.innerHTML = '<div class="cart-empty">Je winkelmandje is nog leeg</div>';
+        checkoutBtn.disabled = true;
+        checkoutForm.classList.remove('active');
+      } else {
+        cartItemsEl.innerHTML = items.map(item => `
+          <div class="cart-item">
+            <div class="cart-item-info">
+              <h5>${escapeHtml(item.name)}</h5>
+              <span>${item.qty} × € ${formatPrice(item.price)}</span>
+            </div>
+            <div class="cart-item-price">€ ${formatPrice(item.qty * item.price)}</div>
+            <button type="button" class="cart-item-remove" data-id="${escapeHtml(Object.keys(cart).find(k => cart[k] === item))}" aria-label="Verwijder ${escapeHtml(item.name)}">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+        `).join('');
+
+        // Add remove listeners
+        cartItemsEl.querySelectorAll('.cart-item-remove').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const id = btn.dataset.id;
+            delete cart[id];
+            // Reset the stepper
+            const menuItem = document.querySelector(`.menu-item[data-id="${id}"]`);
+            if (menuItem) {
+              menuItem.querySelector('.qty-value').textContent = '0';
+              menuItem.querySelector('.qty-minus').disabled = true;
+            }
+            updateCart();
+          });
+        });
+
+        checkoutBtn.disabled = false;
+      }
+
+      const total = items.reduce((sum, item) => sum + (item.qty * item.price), 0);
+      cartTotalEl.textContent = `€ ${formatPrice(total)}`;
+    }
+
+    function formatPrice(price) {
+      return price.toFixed(2).replace('.', ',');
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    // Checkout toggle
+    checkoutBtn.addEventListener('click', () => {
+      checkoutForm.classList.add('active');
+      checkoutForm.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+
+    document.getElementById('cancelCheckoutBtn').addEventListener('click', () => {
+      checkoutForm.classList.remove('active');
+    });
+
+    // Place order
+    document.getElementById('placeOrderBtn').addEventListener('click', () => {
+      const fname = document.getElementById('fname').value.trim();
+      const lname = document.getElementById('lname').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+
+      if (!fname || !lname || !phone) {
+        alert('Gelieve alle verplichte velden in te vullen.');
+        return;
+      }
+
+      const date = document.getElementById('order-date').value;
+      const time = document.getElementById('order-time').value;
+
+      if (!date || !time) {
+        alert('Gelieve een datum en tijdstip te selecteren.');
+        return;
+      }
+
+      // Generate order reference
+      const ref = 'OB-' + Date.now().toString().slice(-6);
+      document.getElementById('orderRef').textContent = 'Ref: #' + ref;
+
+      confirmationOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+
+    document.getElementById('closeConfirmBtn').addEventListener('click', () => {
+      confirmationOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+      // Reset cart
+      Object.keys(cart).forEach(id => delete cart[id]);
+      document.querySelectorAll('.qty-value').forEach(el => el.textContent = '0');
+      document.querySelectorAll('.qty-minus').forEach(el => el.disabled = true);
+      updateCart();
+      checkoutForm.classList.remove('active');
+      document.getElementById('fname').value = '';
+      document.getElementById('lname').value = '';
+      document.getElementById('phone').value = '';
+      document.getElementById('email').value = '';
+      document.getElementById('address').value = '';
+      document.getElementById('notes').value = '';
+    });
+
+    // Close confirmation on overlay click
+    confirmationOverlay.addEventListener('click', (e) => {
+      if (e.target === confirmationOverlay) {
+        document.getElementById('closeConfirmBtn').click();
+      }
+    });
+
+    // Escape key to close confirmation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && confirmationOverlay.classList.contains('active')) {
+        document.getElementById('closeConfirmBtn').click();
+      }
+    });
+  })();
+  </script>
+</body>
+</html>
