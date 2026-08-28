@@ -1149,38 +1149,8 @@ main > section {
         <div class="cart__list" id="cartList"></div>
         <div class="cart__total"><span>Totaal</span><span id="cartTotal">€0,00</span></div>
 
-        <form id="checkoutForm" class="checkout-fields">
-          <div class="field">
-            <label for="fName">Naam</label>
-            <input id="fName" type="text" required />
-          </div>
-          <div class="field">
-            <label for="fPhone">Telefoon</label>
-            <input id="fPhone" type="tel" required />
-          </div>
-          <div class="field field--delivery-only">
-            <label for="fAddress">Leveradres</label>
-            <input id="fAddress" type="text" />
-          </div>
-          <div class="field">
-            <label for="fDate">Gewenste datum</label>
-            <input id="fDate" type="date" required />
-          </div>
-          <div class="field">
-            <span id="timeLabel">Gewenst afhaaluur</span>
-            <div id="timeSelect" class="time-chips" role="group" aria-labelledby="timeLabel"></div>
-          </div>
-          <div class="field">
-            <label for="fNotes">Opmerkingen (optioneel)</label>
-            <textarea id="fNotes" rows="2"></textarea>
-          </div>
-          <button type="submit" class="btn btn--primary">Bestelling plaatsen</button>
-        </form>
-      </div>
-
-      <div class="order-confirm" id="orderConfirm">
-        <h2>Bedankt!</h2>
-        <p>We hebben je bestelling ontvangen en bereiden ze voor. Tot zo dadelijk in het Oudenberghof.</p>
+        <button type="button" id="checkoutForm" class="btn btn--primary">Bestel via Oudenberghof Takeaway</button>
+        <p class="checkout-note">Afrekenen verloopt via het bestaande, vertrouwde bestelsysteem van Oudenberghof — deze pagina stuurt je gewoon door.</p>
       </div>
     </aside>
   </div>
@@ -1410,23 +1380,13 @@ main > section {
   }
 
   function initCheckoutForm() {
-    const form = document.getElementById("checkoutForm");
-    if (!form) return;
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
+    // Bestelling wordt afgerond via het bestaande bestelsysteem van de zaak,
+    // niet via een eigen checkout — zie Decisions/... Oudenberghof-voorstel voor de afweging.
+    const btn = document.getElementById("checkoutForm");
+    if (!btn) return;
+    btn.addEventListener("click", () => {
       if (cartCount() === 0) return;
-      cart = {};
-      saveCart();
-      document.querySelectorAll("[data-item-id]").forEach((row) => {
-        const countEl = row.querySelector(".stepper__count");
-        if (countEl) countEl.textContent = "0";
-        row.classList.remove("in-cart");
-      });
-      const badge = document.getElementById("cartBadge");
-      if (badge) badge.style.display = "none";
-      document.getElementById("cartEmpty").style.display = "none";
-      document.getElementById("cartFilled").style.display = "none";
-      document.getElementById("orderConfirm").classList.add("is-active");
+      window.open("https://oudenberghoftakeaway.be", "_blank", "noopener");
     });
   }
 

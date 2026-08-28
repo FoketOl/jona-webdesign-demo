@@ -325,67 +325,15 @@ img{max-width:100%}
       <div class="cart-head"><div><span class="section-kicker">Jouw bestelling</span><h2>Mandje</h2></div><span class="cart-pill" id="cart-count">0</span></div>
       <div id="cart-items" class="cart-items"><div class="empty-cart"><strong>Je mandje is leeg.</strong><span>Voeg iets toe uit het menu.</span></div></div>
       <div class="cart-total"><span>Subtotaal</span><strong id="cart-total">&euro; 0,00</strong></div>
-      <button class="button button-dark full" id="checkout-open" disabled>Verder naar gegevens <span>&rarr;</span></button>
-      <p class="cart-caption">Prototype: geen echte betaling of bestelling wordt verstuurd.</p>
+      <button class="button button-dark full" id="checkout-open" disabled>Bestel via Oudenberghof Takeaway <span>&rarr;</span></button>
+      <p class="cart-caption">Afrekenen verloopt via het bestaande, vertrouwde bestelsysteem van Oudenberghof — deze pagina stuurt je gewoon door.</p>
     </aside>
-  </section>
-
-  <section class="checkout" id="checkout" hidden>
-    <div class="checkout-head">
-      <span class="section-kicker">Laatste stap</span>
-      <h2>Plan je bestelling.</h2>
-      <p>Alle velden zijn nodig voor dit prototype. Een echte productie-integratie kan hier later de betaal- en orderflow overnemen.</p>
-    </div>
-    <form id="checkout-form" class="checkout-grid">
-      <fieldset>
-        <legend>1 &middot; Hoe wil je ontvangen?</legend>
-        <div class="mode-grid">
-          <label class="mode-card"><input type="radio" name="mode" value="afhalen" checked /><span><b>Afhalen</b><small>Edingseweg 13, Geraardsbergen</small></span></label>
-          <label class="mode-card"><input type="radio" name="mode" value="levering" /><span><b>Levering</b><small>Beschikbaarheid en gebied in productie te koppelen.</small></span></label>
-        </div>
-        <div id="address-field" class="field" hidden><label for="address">Leveringsadres</label><input id="address" name="address" autocomplete="street-address" /></div>
-      </fieldset>
-      <fieldset>
-        <legend>2 &middot; Wanneer?</legend>
-        <div class="field"><label for="date">Datum</label><input id="date" name="date" type="date" required /></div>
-        <div class="field">
-          <span class="field-label">Tijdstip</span>
-          <div id="time-slots" class="time-slots" role="group" aria-label="Kies een tijdstip"></div>
-          <small class="slot-note">Prototype: doorlopende tijdslots 11u30&ndash;21u00; live beschikbaarheid komt in productie uit de bestelbackend.</small>
-          <input id="time" name="time" type="hidden" required />
-        </div>
-      </fieldset>
-      <fieldset>
-        <legend>3 &middot; Jouw gegevens</legend>
-        <div class="field-row">
-          <div class="field"><label for="name">Naam</label><input id="name" name="name" autocomplete="name" required /></div>
-          <div class="field"><label for="phone">Telefoon</label><input id="phone" name="phone" type="tel" autocomplete="tel" required /></div>
-        </div>
-        <div class="field"><label for="note">Opmerking <span>(optioneel)</span></label><textarea id="note" name="note" rows="4" placeholder="Nog iets dat we moeten weten?"></textarea></div>
-      </fieldset>
-      <aside class="checkout-summary">
-        <span class="section-kicker">Overzicht</span>
-        <div id="summary-items"></div>
-        <div class="summary-total"><span>Subtotaal</span><strong id="summary-total">&euro; 0,00</strong></div>
-        <button class="button button-light full" type="submit">Bestelling bevestigen <span>&rarr;</span></button>
-      </aside>
-    </form>
-  </section>
-
-  <section class="confirmation" id="confirmation" hidden>
-    <div class="confirmation-card">
-      <span class="ornament">&#10022;</span>
-      <p class="section-kicker">Prototype bevestigd</p>
-      <h2>Bestelling ontvangen.</h2>
-      <p id="confirmation-copy"></p>
-      <button class="button button-dark" id="new-order">Nieuwe bestelling</button>
-    </div>
   </section>
 </main>
 
 <div class="mobile-order-bar" aria-label="Besteloverzicht" id="mobile-order-bar">
   <div><span id="mobile-count">0 items</span><strong id="mobile-total">&euro; 0,00</strong></div>
-  <button id="mobile-next" type="button">Verder <span>&rarr;</span></button>
+  <button id="mobile-next" type="button">Bestellen <span>&rarr;</span></button>
 </div>
 
 </body>
