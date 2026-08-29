@@ -97,6 +97,23 @@ section { padding: 70px 0; }
 .fact span { font-size: 0.85rem; color: var(--ink-soft); }
 @media (max-width: 780px) { .about-grid { grid-template-columns: 1fr; gap: 30px; } }
 
+/* Why-choose cards */
+.why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.why-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 30px 26px; text-align: center; }
+.why-icon { width: 60px; height: 60px; border-radius: 50%; background: var(--bg); border: 1.5px solid var(--rose); display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; color: var(--rose-deep); }
+.why-card h3 { font-family: var(--serif); font-size: 1.25rem; font-weight: 600; margin-bottom: 10px; }
+.why-card p { color: var(--ink-soft); font-size: 0.9rem; }
+@media (max-width: 780px) { .why-grid { grid-template-columns: 1fr; } }
+
+/* Products */
+.products { background: var(--card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.product-card { text-align: center; padding: 10px; }
+.product-icon { width: 72px; height: 72px; border-radius: 50%; background: var(--bg); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; color: var(--rose-deep); }
+.product-card h4 { font-family: var(--serif); font-size: 1.1rem; font-weight: 600; margin-bottom: 8px; }
+.product-card p { color: var(--ink-soft); font-size: 0.86rem; }
+@media (max-width: 780px) { .products-grid { grid-template-columns: 1fr; } }
+
 /* Pricing */
 .price-tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 40px; flex-wrap: wrap; }
 .price-tab { background: var(--card); border: 1.5px solid var(--border); color: var(--ink-soft); padding: 10px 22px; border-radius: 30px; font-weight: 600; font-size: 0.9rem; cursor: pointer; }
@@ -190,6 +207,67 @@ footer a { color: #f0e8e2; }
       <p style="font-family: var(--serif); font-size: 1.5rem; line-height: 1.5; color: var(--ink-soft); font-style: italic;">
         &ldquo;Een goede knipbeurt begint bij aandacht luisteren naar wat u écht wil.&rdquo;
       </p>
+    </div>
+  </div>
+</section>
+
+<section id="waarom">
+  <div class="wrap">
+    <div class="section-kicker">Waarom Coiffure Exclusief</div>
+    <h2 class="section-title">Vakmanschap, geen lopende band</h2>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M8.5 8.5 19 19M19 5 8.5 15.5"/></svg>
+        </div>
+        <h3>25 jaar ervaring</h3>
+        <p>Sandra staat al een kwarteeuw met dezelfde passie klaar — vakmanschap dat je proeft in elk detail.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 20v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="6" r="4"/><path d="M22 20v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3>Voor het hele gezin</h3>
+        <p>Dames, heren en kinderen — iedereen is welkom, van een snelle knipbeurt tot een volledige make-over.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg>
+        </div>
+        <h3>Persoonlijke aandacht</h3>
+        <p>Geen lopende band — tijd voor een goed gesprek en advies op maat van uw haar en wensen.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="products">
+  <div class="wrap">
+    <div class="section-kicker">Producten</div>
+    <h2 class="section-title">Uitsluitend Carin Haircosmetics</h2>
+    <p class="section-lead">Professionele verzorging, afgestemd op uw haartype.</p>
+    <div class="products-grid">
+      <div class="product-card">
+        <div class="product-icon">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 2h6v4l2 2v12a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2V8l2-2V2Z"/><path d="M7 12h10"/></svg>
+        </div>
+        <h4>Shampoo &amp; conditioner</h4>
+        <p>Verzorgende basisreiniging, afgestemd op elk haartype.</p>
+      </div>
+      <div class="product-card">
+        <div class="product-icon">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2C8 6 6 10 6 13a6 6 0 0 0 12 0c0-3-2-7-6-11Z"/></svg>
+        </div>
+        <h4>Haarverzorging</h4>
+        <p>Intensieve verzorgingstreatments voor sterk, gezond haar.</p>
+      </div>
+      <div class="product-card">
+        <div class="product-icon">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 12h13M13 6l6 6-6 6"/></svg>
+        </div>
+        <h4>Styling</h4>
+        <p>Van brushing tot finish — de juiste producten voor het gewenste resultaat.</p>
+      </div>
     </div>
   </div>
 </section>
