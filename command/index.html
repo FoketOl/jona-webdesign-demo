@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Jona Command</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
+
+:root {
+  --bg: #0a0e15;
+  --bg-panel: #10161f;
+  --bg-panel-raised: #141b26;
+  --cyan: #4ce6ff;
+  --cyan-dim: #2a8ba8;
+  --magenta: #ff3d9a;
+  --magenta-dim: #a82a66;
+  --amber: #ffb454;
+  --green: #39ff8a;
+  --green-dim: #1a8a4d;
+  --ink: #dceaf2;
+  --ink-dim: #63748a;
+  --ink-faint: #3a4658;
+  --border: #1c2634;
+  --border-bright: #2a3a4d;
+  --display: 'Chakra Petch', 'Segoe UI', sans-serif;
+  --mono: 'JetBrains Mono', 'Consolas', monospace;
+  --sans: 'IBM Plex Sans', -apple-system, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  line-height: 1.5;
+  min-height: 100vh;
+  background-image:
+    linear-gradient(rgba(57,255,138,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(57,255,138,0.03) 1px, transparent 1px);
+  background-size: 42px 42px;
+}
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+}
+
+.scanlines {
+  position: fixed; inset: 0; pointer-events: none; z-index: 200; mix-blend-mode: overlay;
+  background: repeating-linear-gradient(0deg, rgba(57,255,138,0.05) 0px, rgba(57,255,138,0.05) 1px, transparent 1px, transparent 3px);
+  animation: scan-drift 9s linear infinite;
+}
+@keyframes scan-drift { 0% { background-position: 0 0; } 100% { background-position: 0 120px; } }
+@media (prefers-reduced-motion: reduce) { .scanlines { animation: none; } }
+
+.wrap { max-width: 1240px; margin: 0 auto; padding: 0 28px 80px; }
+
+/* ---------- Top bar ---------- */
+.topbar {
+  border-bottom: 1px solid var(--border);
+  padding: 22px 0;
+  position: sticky;
+  top: 0;
+  background: rgba(10,14,21,0.88);
+  backdrop-filter: blur(10px);
+  z-index: 50;
+}
+.topbar-inner { max-width: 1240px; margin: 0 auto; padding: 0 28px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+.brand { display: flex; align-items: center; gap: 12px; }
+.brand-mark { width: 34px; height: 34px; border: 1.5px solid var(--green); box-shadow: 0 0 10px rgba(57,255,138,0.5); position: relative; flex-shrink: 0; }
+.brand-mark::before, .brand-mark::after {
+  content: ""; position: absolute; width: 8px; height: 8px; border: 1.5px solid var(--magenta);
+}
+.brand-mark::before { top: -1.5px; left: -1.5px; border-right: none; border-bottom: none; }
+.brand-mark::after { bottom: -1.5px; right: -1.5px; border-left: none; border-top: none; }
+.brand-text { font-family: var(--display); font-weight: 700; font-size: 1.15rem; letter-spacing: 0.02em; text-transform: uppercase; }
+.brand-text span { color: var(--cyan); }
+.brand-sub { font-family: var(--mono); font-size: 0.72rem; color: var(--ink-dim); letter-spacing: 0.06em; margin-top: 1px; }
+
+.clock-block { font-family: var(--mono); font-size: 0.78rem; color: var(--ink-dim); text-align: right; }
+.clock-block .status-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--green); margin-right: 6px; box-shadow: 0 0 8px var(--green); animation: pulse 2.4s ease-in-out infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+
+/* ---------- Stat rail ---------- */
+.stat-rail { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin: 32px 0 40px; }
+.stat-cell { background: var(--bg-panel); padding: 20px 22px; }
+.stat-label { font-family: var(--mono); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-dim); margin-bottom: 10px; }
+.stat-value { font-family: var(--display); font-size: 2rem; font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; }
+.stat-value .of { color: var(--ink-faint); font-size: 1.1rem; }
+.stat-value.accent-cyan { color: var(--cyan); }
+.stat-value.accent-magenta { color: var(--magenta); }
+.stat-bar { height: 4px; background: var(--border); margin-top: 12px; position: relative; overflow: hidden; }
+.stat-bar-fill { position: absolute; inset: 0; width: 60%; background: linear-gradient(90deg, var(--green), var(--cyan)); box-shadow: 0 0 8px rgba(57,255,138,0.6); }
+
+/* ---------- Section heads ---------- */
+.section-head { display: flex; align-items: baseline; justify-content: space-between; margin: 48px 0 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+.section-title { font-family: var(--display); font-size: 1.05rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
+.section-title .idx { color: var(--green); text-shadow: 0 0 8px rgba(57,255,138,0.5); font-family: var(--mono); margin-right: 10px; }
+.section-note { font-family: var(--mono); font-size: 0.74rem; color: var(--ink-dim); }
+
+/* ---------- Client grid ---------- */
+.client-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 18px; }
+.client-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  position: relative;
+  padding: 22px 22px 20px;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+.client-card:hover { border-color: var(--border-bright); transform: translateY(-2px); }
+.client-card::before, .client-card::after {
+  content: ""; position: absolute; width: 12px; height: 12px; opacity: 0.7;
+}
+.client-card::before { top: -1px; left: -1px; border-top: 1.5px solid var(--green); border-left: 1.5px solid var(--green); }
+.client-card::after { bottom: -1px; right: -1px; border-bottom: 1.5px solid var(--magenta); border-right: 1.5px solid var(--magenta); }
+
+.card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+.card-name { font-family: var(--display); font-size: 1.15rem; font-weight: 600; line-height: 1.25; }
+.card-sector { font-family: var(--mono); font-size: 0.7rem; color: var(--ink-dim); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 4px; }
+.status-pill { font-family: var(--mono); font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; padding: 4px 9px; border: 1px solid var(--green); color: var(--green); text-shadow: 0 0 8px rgba(57,255,138,0.7); box-shadow: 0 0 10px rgba(57,255,138,0.15) inset; white-space: nowrap; flex-shrink: 0; }
+
+.card-meta { display: flex; gap: 16px; font-family: var(--mono); font-size: 0.72rem; color: var(--ink-dim); margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px dashed var(--border); }
+.card-meta b { color: var(--ink); font-weight: 500; }
+
+.variant-list { display: flex; flex-direction: column; gap: 8px; }
+.variant-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.variant-name { font-size: 0.86rem; color: var(--ink); }
+.variant-links { display: flex; gap: 6px; }
+.variant-links a {
+  font-family: var(--mono); font-size: 0.68rem; text-decoration: none; color: var(--cyan);
+  border: 1px solid var(--cyan-dim); padding: 3px 9px; white-space: nowrap;
+}
+.variant-links a:hover { background: var(--cyan); color: var(--bg); }
+.variant-links a.secondary { color: var(--magenta); border-color: var(--magenta-dim); }
+.variant-links a.secondary:hover { background: var(--magenta); color: var(--bg); }
+
+/* ---------- Pipeline ---------- */
+.pipeline-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
+.pipe-card { background: var(--bg-panel); border: 1px dashed var(--border-bright); padding: 18px 20px; }
+.pipe-name { font-family: var(--display); font-size: 1rem; font-weight: 600; margin-bottom: 6px; }
+.pipe-sector { font-family: var(--mono); font-size: 0.7rem; color: var(--ink-dim); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px; }
+.pipe-status { font-family: var(--mono); font-size: 0.68rem; color: var(--amber); text-transform: uppercase; letter-spacing: 0.05em; }
+
+/* ---------- Log ---------- */
+.log-panel { background: var(--bg-panel); border: 1px solid var(--border); padding: 4px 0; font-family: var(--mono); font-size: 0.78rem; }
+.log-row { display: grid; grid-template-columns: 100px 140px 1fr; gap: 16px; padding: 10px 22px; border-bottom: 1px solid var(--border); align-items: baseline; }
+.log-row:last-child { border-bottom: none; }
+.log-date { color: var(--ink-dim); }
+.log-tag { color: var(--green); }
+.log-msg { color: var(--ink); }
+
+/* ---------- Stats placeholder ---------- */
+.stats-pending { background: var(--bg-panel); border: 1px dashed var(--border-bright); padding: 28px; text-align: center; font-family: var(--mono); font-size: 0.82rem; color: var(--ink-dim); }
+.stats-pending .highlight { color: var(--amber); }
+
+footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--border); font-family: var(--mono); font-size: 0.72rem; color: var(--ink-faint); text-align: center; }
+
+@media (max-width: 700px) {
+  .stat-rail { grid-template-columns: repeat(2, 1fr); }
+  .log-row { grid-template-columns: 1fr; gap: 4px; }
+}
+</style>
+</head>
+<body>
+
+<div class="scanlines" aria-hidden="true"></div>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <div class="brand-mark"></div>
+      <div>
+        <div class="brand-text">JONA<span>//</span>COMMAND</div>
+        <div class="brand-sub">Interne dashboard — Olivier &amp; Jonathan</div>
+      </div>
+    </div>
+    <div class="clock-block"><span class="status-dot"></span>ALLE SYSTEMEN LIVE &middot; laatst bijgewerkt 2026-08-29</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="stat-rail">
+    <div class="stat-cell">
+      <div class="stat-label">Klanten live</div>
+      <div class="stat-value accent-cyan">6<span class="of"> / 10</span></div>
+      <div class="stat-bar"><div class="stat-bar-fill"></div></div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-label">Varianten gebouwd</div>
+      <div class="stat-value">14</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-label">Sectoren gedekt</div>
+      <div class="stat-value accent-magenta">6</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-label">In de pijplijn</div>
+      <div class="stat-value">4</div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <div class="section-title"><span class="idx">01</span>Live klanten</div>
+    <div class="section-note">klik op een stijl om de demo te openen</div>
+  </div>
+
+  <div class="client-grid">
+
+    <div class="client-card">
+      <div class="card-top">
+        <div>
+          <div class="card-name">Taverne Oudenberghof</div>
+          <div class="card-sector">Restaurant — Geraardsbergen</div>
+        </div>
+        <div class="status-pill">Live</div>
+      </div>
+      <div class="card-meta"><span>Gebouwd <b>22.08</b></span><span><b>3</b> varianten</span></div>
+      <div class="variant-list">
+        <div class="variant-row"><span class="variant-name">Kaarslicht</span><div class="variant-links"><a href="https://foketol.github.io/jona-webdesign-demo/oudenberghof-kaarslicht/" target="_blank" rel="noopener">site</a><a class="secondary" href="https://foketol.github.io/jona-webdesign-demo/oudenberghof-kaarslicht/bestellen.html" target="_blank" rel="noopener">bestel</a></div></div>
+        <div class="variant-row"><span class="variant-name">Editorial</span><div class="variant-links"><a href="https://foketol.github.io/jona-webdesign-demo/oudenberghof-editorial/" target="_blank" rel="noopener">site</a><a class="secondary" href="https://foketol.github.io/jona-webdesign-demo/oudenberghof-editorial/bestellen.html" target="_blank" rel="noopener">bestel</a></div></div>
+        <div class="variant-row"><span class="variant-name">Fotografisch</span><div class="variant-links"><a href="https://foketol.github.io/jona-webdesign-demo/oudenberghof-fotografisch/" target="_blank" rel="noopener">site</a><a class="secondary" href="https://foketol.github.io/jona-webdesign-demo/oudenberghof-fotografisch/bestel.html" target="_blank" rel="noopener">bestel</a></div></div>
+      </div>
+    </div>
+
+    <div class="client-card">
+      <div class="card-top">
+        <div>
+          <div class="card-name">Restaurant Schendelbeekhof</div>
+          <div class="card-sector">Restaurant — Schendelbeke</div>
+        </div>
+        <div class="status-pill">Live</div>
+      </div>
+      <div class="card-meta"><span>Gebouwd <b>22.08</b></span><span><b>3</b> varianten</span></div>
+      <div class="variant-list">
+        <div class="variant-row"><span class="variant-name">Boerderij</span><div class="variant-links"><a href="https://foketol.github.io/jona-webdesign-demo/schendelbeekhof-boerderij/" target="_blank" rel="noopener">site</a><a class="secondary" href="https://foketol.github.io/jona-webdesign-demo/schendelbeekhof-boerderij/reserveren.html" target="_blank" rel="noopener">reserveer</a></div></div>
+        <div class="variant-row"><span class="variant-name">Elegant</span><div class="variant-links"><a href="https://foketol.github.io/jona-webdesign-demo/schendelbeekhof-elegant/" target="_blank" rel="noopener">site</a><a class="secondary" href="https://foketol.github.io/jona-webdesign-demo/schendelbeekhof-elegant/reserveren.html" target="_blank" rel="noopener">reserveer</a></div></div>
+        <div class="variant-row"><span class="variant-name">Bistro</span><div class="variant-links"><a href="https://foketol.github.io/jona-webdesign-demo/schendelbeekhof-bistro/" target="_blank" rel="noopener">site</a><a class="secondary" href="https://foketol.github.io/jona-webdesign-demo/schendelbeekhof-bistro/reserveren.html" target="_blank" rel="noopener">reserveer</a></div></div>
+      </div>
+    </div>
+
+    <div class="client-card">
+      <div class="card-top">
+        <div>
+          <div class="card-name">Taverne Stadhuis</div>
+          <div class="card-sector">Café / Taverne — Geraardsbergen</div>
+        </div>
+        <div class="status-pill">Live</div>
+      </div>
+      <div class="card-meta"><span>Gebouwd <b>23.08</b></span><span><b>3</b> varianten</span></div>
+      <div class="variant-list">
+        <div class="variant-row"><span class="variant-name">Retro Diner</span><div class="variant-links"><a href="https://foketol.github.io/jona-webdesign-demo/stadhuis-retro-diner/" target="_blank" rel="noopener">site</a><a class="secondary" href="https://foketol.github.io/jona-webdesign-demo/stadhuis-retro-diner/reserveren.html" target="_blank" rel="noopener">reserveer</a></div></div>
+        <div class="variant-row"><span class="variant-name">Bruin Caf&eacute;</span><div class="variant-links"><a href="https://foketol.github.io/jona-webdesign-demo/stadhuis-bruin-cafe/" target="_blank" rel="noopener">site</a><a class="secondary" href="https://foketol.github.io/jona-webdesign-demo/stadhuis-bruin-cafe/reserveren.html" target="_blank" rel="noopener">reserveer</a></div></div>
+        <div class="variant-row"><span class="variant-name">Event &amp; Arcade</span><div class="variant-links"><a href="https://foketol.github.io/jona-webdesign-demo/stadhuis-event-arcade/" target="_blank" rel="noopener">site</a><a class="secondary" href="https://foketol.github.io/jona-webdesign-demo/stadhuis-event-arcade/reserveren.html" target="_blank" rel="noopener">reserveer</a></div></div>
+      </div>
+    </div>
+
+    <div class="client-card">
+      <div class="card-top">
+        <div>
+          <div class="card-name">Coiffure Exclusief</div>
+          <div class="card-sector">Kapsalon — Geraardsbergen</div>
+        </div>
+        <div class="status-pill">Live</div>
+      </div>
+      <div class="card-meta"><span>Gebouwd <b>29.08</b></span><span><b>2</b> varianten</span></div>
+      <div class="variant-list">
+        <div class="variant-row"><span class="variant-name">Elegant</span><div class="variant-links"><a href="https://foketol.github.io/jona-webdesign-demo/coiffure-elegant/" target="_blank" rel="noopener">site</a></div></div>
+        <div class="variant-row"><span class="variant-name">Bold Editorial</span><div class="variant-links"><a href="https://foketol.github.io/jona-webdesign-demo/coiffure-bold-editorial/" target="_blank" rel="noopener">site</a></div></div>
+      </div>
+    </div>
+
+    <div class="client-card">
+      <div class="card-top">
+        <div>
+          <div class="card-name">'t Grof Zout</div>
+          <div class="card-sector">Fine dining — Geraardsbergen</div>
+        </div>
+        <div class="status-pill">Live</div>
+      </div>
+      <div class="card-meta"><span>Gebouwd <b>29.08</b></span><span><b>2</b> varianten</span></div>
+      <div class="variant-list">
+        <div class="variant-row"><span class="variant-name">Refined</span><div class="variant-links"><a href="https://foketol.github.io/jona-webdesign-demo/grofzout-refined/" target="_blank" rel="noopener">site</a></div></div>
+        <div class="variant-row"><span class="variant-name">Editorial Dark</span><div class="variant-links"><a href="https://foketol.github.io/jona-webdesign-demo/grofzout-editorial-dark/" target="_blank" rel="noopener">site</a></div></div>
+      </div>
+    </div>
+
+    <div class="client-card">
+      <div class="card-top">
+        <div>
+          <div class="card-name">Bakkerij Sarlar</div>
+          <div class="card-sector">Bakkerij — Zarlardinge</div>
+        </div>
+        <div class="status-pill">Live</div>
+      </div>
+      <div class="card-meta"><span>Gebouwd <b>29.08</b></span><span><b>1</b> variant</span></div>
+      <div class="variant-list">
+        <div class="variant-row"><span class="variant-name">Artisanaal</span><div class="variant-links"><a href="https://foketol.github.io/jona-webdesign-demo/sarlar-artisanaal/" target="_blank" rel="noopener">site</a></div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="section-head">
+    <div class="section-title"><span class="idx">02</span>In de pijplijn</div>
+    <div class="section-note">geverifieerd, nog te bouwen</div>
+  </div>
+
+  <div class="pipeline-grid">
+    <div class="pipe-card">
+      <div class="pipe-name">Slagerij De Reuse</div>
+      <div class="pipe-sector">Slager / traiteur</div>
+      <div class="pipe-status">&#9679; onderzoek klaar</div>
+    </div>
+    <div class="pipe-card">
+      <div class="pipe-name">Thai Recept</div>
+      <div class="pipe-sector">Thais restaurant</div>
+      <div class="pipe-status">&#9679; wachtrij</div>
+    </div>
+    <div class="pipe-card">
+      <div class="pipe-name">De Rozenberg</div>
+      <div class="pipe-sector">Chinees restaurant</div>
+      <div class="pipe-status">&#9679; wachtrij</div>
+    </div>
+    <div class="pipe-card">
+      <div class="pipe-name">'t Lorreintje</div>
+      <div class="pipe-sector">Bistro + feestzaal</div>
+      <div class="pipe-status">&#9679; wachtrij</div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <div class="section-title"><span class="idx">03</span>Bezoekstatistieken</div>
+  </div>
+  <div class="stats-pending">
+    Nog niet gekoppeld — vereist een <span class="highlight">GitHub Personal Access Token</span> (leesrecht op traffic-API van <code>jona-webdesign-demo</code>) om echte per-pagina bezoekcijfers te tonen. Geen enkel cijfer hierboven is verzonnen — zodra de token er is, komt hier live data i.p.v. deze melding.
+  </div>
+
+  <div class="section-head">
+    <div class="section-title"><span class="idx">04</span>Buildlog</div>
+  </div>
+  <div class="log-panel">
+    <div class="log-row"><span class="log-date">08.22</span><span class="log-tag">NEW</span><span class="log-msg">Oudenberghof + Schendelbeekhof — eerste twee klanten live</span></div>
+    <div class="log-row"><span class="log-date">08.23</span><span class="log-tag">NEW</span><span class="log-msg">Taverne Stadhuis toegevoegd</span></div>
+    <div class="log-row"><span class="log-date">08.27</span><span class="log-tag">FIX</span><span class="log-msg">GitHub Pages-hosting opgezet, wegval van kwetsbare Artifact-links</span></div>
+    <div class="log-row"><span class="log-date">08.28</span><span class="log-tag">FIX</span><span class="log-msg">Brand-leak "Jonaphone" verwijderd uit alle sitefooters</span></div>
+    <div class="log-row"><span class="log-date">08.29</span><span class="log-tag">NEW</span><span class="log-msg">Coiffure Exclusief, 't Grof Zout, Bakkerij Sarlar toegevoegd</span></div>
+    <div class="log-row"><span class="log-date">08.29</span><span class="log-tag">FIX</span><span class="log-msg">Publieke klantenlijst van demo-root verwijderd (privacy-lek)</span></div>
+  </div>
+
+  <footer>JONA//COMMAND — intern, niet gedeeld met klanten &middot; webdesignjona@gmail.com</footer>
+
+</div>
+
+<script>
+document.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && ['I','J','C'].includes(e.key))) e.preventDefault();
+});
+</script>
+</body>
+</html>
