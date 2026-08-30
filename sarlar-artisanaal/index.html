@@ -32,6 +32,7 @@
   --radius: 20px;
   --heading: 'Fredoka', sans-serif;
   --body: 'Nunito', -apple-system, sans-serif;
+  --lattice: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Cg stroke='%23d17f6b' stroke-width='2.5' opacity='0.14'%3E%3Cline x1='0' y1='40' x2='40' y2='0'/%3E%3Cline x1='-10' y1='30' x2='30' y2='-10'/%3E%3Cline x1='10' y1='50' x2='50' y2='10'/%3E%3Cline x1='0' y1='0' x2='40' y2='40'/%3E%3Cline x1='-10' y1='10' x2='10' y2='-10'/%3E%3Cline x1='30' y1='50' x2='50' y2='30'/%3E%3C/g%3E%3C/svg%3E");
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -51,7 +52,8 @@ body { font-family: var(--body); color: var(--ink); background: var(--cream); li
 
 header.site-nav { position: sticky; top: 0; z-index: 50; background: rgba(255,248,240,0.92); backdrop-filter: blur(8px); border-bottom: 2px solid var(--border); }
 .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; max-width: 1080px; margin: 0 auto; }
-.logo { font-family: var(--heading); font-size: 1.5rem; font-weight: 700; color: var(--pink-deep); text-decoration: none; }
+.logo { display: flex; align-items: center; gap: 10px; font-family: var(--heading); font-size: 1.3rem; font-weight: 700; color: var(--pink-deep); text-decoration: none; }
+.logo svg { width: 36px; height: 36px; }
 .nav-links { display: flex; gap: 28px; list-style: none; }
 .nav-links a { color: var(--ink); text-decoration: none; font-weight: 600; font-size: 0.95rem; }
 .nav-links a:hover { color: var(--pink-deep); }
@@ -66,7 +68,8 @@ header.site-nav { position: sticky; top: 0; z-index: 50; background: rgba(255,24
 }
 
 .hero { padding: 60px 0 80px; position: relative; overflow: hidden; }
-.hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+.hero::before { content: ""; position: absolute; inset: 0; background-image: var(--lattice); pointer-events: none; }
+.hero-grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 50px; align-items: center; position: relative; z-index: 1; }
 .hero-kicker { font-family: var(--heading); font-size: 0.95rem; color: var(--pink-deep); font-weight: 600; margin-bottom: 16px; }
 .hero h1 { font-family: var(--heading); font-weight: 700; font-size: clamp(2.4rem, 5vw, 3.4rem); line-height: 1.1; margin-bottom: 20px; color: var(--ink); }
 .hero p.lead { font-size: 1.08rem; color: var(--ink-soft); max-width: 460px; margin-bottom: 30px; }
@@ -92,18 +95,22 @@ section { padding: 70px 0; }
 .story-image { border-radius: var(--radius); overflow: hidden; aspect-ratio: 4/3; }
 .story-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .story-text p { color: var(--ink-soft); margin-bottom: 14px; }
-.story-facts { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 22px; }
-.fact { background: var(--cream); border: 2px solid var(--border); border-radius: 16px; padding: 16px 18px; text-align: center; transition: transform 0.3s ease, border-color 0.3s ease; }
-.fact:hover { transform: translateY(-4px); border-color: var(--pink); }
-.fact strong { display: block; font-family: var(--heading); font-size: 1.4rem; color: var(--pink-deep); }
-.fact span { font-size: 0.8rem; color: var(--ink-soft); }
+.timeline { display: flex; gap: 0; margin-top: 26px; border-top: 2px solid var(--border); padding-top: 20px; }
+.timeline-step { flex: 1; position: relative; padding-right: 14px; }
+.timeline-step::before { content: ""; position: absolute; top: -22px; left: 0; width: 10px; height: 10px; border-radius: 50%; background: var(--pink-deep); }
+.timeline-step strong { display: block; font-family: var(--heading); font-size: 1.25rem; color: var(--pink-deep); }
+.timeline-step span { font-size: 0.76rem; color: var(--ink-soft); }
+@media (max-width: 780px) { .timeline { flex-direction: column; gap: 14px; } .timeline-step::before { top: 6px; } .timeline-step { padding-left: 20px; padding-right: 0; } }
 @media (max-width: 780px) { .story-grid { grid-template-columns: 1fr; gap: 30px; } }
 
 .product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 .product-card { background: var(--card); border: 2px solid var(--border); border-radius: var(--radius); padding: 30px 24px; text-align: center; transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; }
 .product-card:hover { transform: translateY(-6px); box-shadow: 0 16px 30px -14px rgba(209,127,107,0.35); border-color: var(--pink); }
-.product-icon { width: 64px; height: 64px; border-radius: 50%; background: var(--cream); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; color: var(--pink-deep); transition: transform 0.3s ease, background 0.3s ease; }
-.product-card:hover .product-icon { transform: scale(1.12) rotate(-6deg); background: var(--pink); color: #fff; }
+.product-icon { width: 64px; height: 64px; border-radius: 50%; background: var(--cream); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; color: var(--pink-deep); transition: transform 0.3s ease, background 0.3s ease; overflow: hidden; }
+.product-card:hover .product-icon { transform: scale(1.12) rotate(-6deg); }
+.product-icon svg { width: 100%; height: 100%; }
+.product-card.featured { border-color: var(--pink-deep); border-width: 2.5px; position: relative; }
+.product-card.featured::before { content: "specialiteit"; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--pink-deep); color: #fff; font-family: var(--heading); font-size: 0.65rem; padding: 4px 12px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.04em; }
 .product-card h3 { font-family: var(--heading); font-size: 1.2rem; font-weight: 600; margin-bottom: 8px; }
 .product-card p { color: var(--ink-soft); font-size: 0.9rem; }
 @media (max-width: 780px) { .product-grid { grid-template-columns: 1fr; } }
@@ -122,6 +129,7 @@ section { padding: 70px 0; }
 @media (max-width: 780px) { .info-grid { grid-template-columns: 1fr; } }
 
 footer { background: var(--pink-deep); color: #fff; padding: 46px 0 30px; text-align: center; }
+footer .foot-mark { width: 46px; height: 46px; margin-bottom: 14px; }
 footer .foot-brand { font-family: var(--heading); font-size: 1.4rem; font-weight: 700; margin-bottom: 8px; }
 footer .foot-note { font-size: 0.8rem; color: #fbe0d8; margin-top: 20px; }
 footer a { color: #fff; }
@@ -143,7 +151,24 @@ footer a { color: #fff; }
 
 <header class="site-nav">
   <div class="nav-inner">
-    <a href="#" class="logo">Bakkerij Sarlar</a>
+    <a href="#" class="logo">
+      <svg viewBox="0 0 220 220">
+        <defs><clipPath id="tartClipNav"><circle cx="110" cy="110" r="68"/></clipPath></defs>
+        <circle cx="110" cy="110" r="94" fill="none" stroke="#e8a798" stroke-width="2"/>
+        <circle cx="110" cy="110" r="70" fill="#e8c078" stroke="#a5763a" stroke-width="3"/>
+        <circle cx="110" cy="110" r="60" fill="#f6e2ae"/>
+        <g clip-path="url(#tartClipNav)">
+          <g stroke="#c99a52" stroke-width="9" stroke-linecap="round">
+            <line x1="20" y1="70" x2="150" y2="200"/><line x1="20" y1="40" x2="180" y2="200"/><line x1="40" y1="20" x2="200" y2="180"/><line x1="70" y1="20" x2="200" y2="150"/><line x1="100" y1="20" x2="200" y2="120"/>
+          </g>
+          <g stroke="#e0b26a" stroke-width="9" stroke-linecap="round">
+            <line x1="200" y1="70" x2="70" y2="200"/><line x1="200" y1="40" x2="40" y2="200"/><line x1="180" y1="20" x2="20" y2="180"/><line x1="150" y1="20" x2="20" y2="150"/><line x1="120" y1="20" x2="20" y2="120"/>
+          </g>
+        </g>
+        <circle cx="110" cy="110" r="70" fill="none" stroke="#a5763a" stroke-width="3"/>
+      </svg>
+      Bakkerij Sarlar
+    </a>
     <nav>
       <ul class="nav-links" id="navLinks">
         <li><a href="#verhaal">Verhaal</a></li>
@@ -184,11 +209,12 @@ footer a { color: #fff; }
     <div class="story-text reveal">
       <div class="section-kicker" style="text-align:left;">Ons verhaal</div>
       <h2 style="font-family: var(--heading); font-size: 2rem; font-weight: 700; margin-bottom: 16px;">Een streekproduct met geschiedenis</h2>
-      <p>De Geraardsbergse mattentaart wordt al vermeld sinds 1510 en is uniek voor deze streek. Sinds 2006 geniet het gebak een beschermde geografische aanduiding (BGA) van de Europese Unie — het mag enkel in Geraardsbergen en het naburige Lierde gemaakt worden.</p>
-      <p>Bakkerij Sarlar in Zarlardinge bakt deze traditie elke dag opnieuw, naast een assortiment vers brood en fijn gebak.</p>
-      <div class="story-facts">
-        <div class="fact"><strong>1510</strong><span>eerste vermelding</span></div>
-        <div class="fact"><strong>2006</strong><span>BGA-bescherming</span></div>
+      <p>De basis van de mattentaart is eeuwenoud: in de middeleeuwen konden boeren melk niet lang bewaren, waardoor ze vanzelf verzuurde tot "matten" (gestremde melk) en wei. Met eieren en suiker werd van dat overschot een vulling gemaakt — de kern van de taart die vandaag nog gebakken wordt.</p>
+      <p>De Geraardsbergse mattentaart wordt al vermeld sinds 1510 en is uniek voor deze streek. Sinds 2006 geniet het gebak een beschermde geografische aanduiding (BGA) van de Europese Unie — het mag enkel in Geraardsbergen en het naburige Lierde gemaakt worden. Bakkerij Sarlar in Zarlardinge bakt deze traditie elke dag opnieuw, naast een assortiment vers brood en fijn gebak.</p>
+      <div class="timeline">
+        <div class="timeline-step reveal"><strong>Middeleeuwen</strong><span>verzuurde melk als basis</span></div>
+        <div class="timeline-step reveal" style="transition-delay:0.08s;"><strong>1510</strong><span>eerste vermelding</span></div>
+        <div class="timeline-step reveal" style="transition-delay:0.16s;"><strong>2006</strong><span>BGA-bescherming EU</span></div>
       </div>
     </div>
   </div>
@@ -200,9 +226,22 @@ footer a { color: #fff; }
     <h2 class="section-title">Elke dag vers</h2>
     <p class="section-lead">Van de mattentaart tot dagelijks brood en fijn gebak.</p>
     <div class="product-grid">
-      <div class="product-card reveal">
+      <div class="product-card featured reveal">
         <div class="product-icon">
-          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg>
+          <svg viewBox="0 0 220 220">
+            <defs><clipPath id="tartClipCard"><circle cx="110" cy="110" r="68"/></clipPath></defs>
+            <circle cx="110" cy="110" r="70" fill="#e8c078" stroke="#a5763a" stroke-width="3"/>
+            <circle cx="110" cy="110" r="60" fill="#f6e2ae"/>
+            <g clip-path="url(#tartClipCard)">
+              <g stroke="#c99a52" stroke-width="9" stroke-linecap="round">
+                <line x1="20" y1="70" x2="150" y2="200"/><line x1="20" y1="40" x2="180" y2="200"/><line x1="40" y1="20" x2="200" y2="180"/><line x1="70" y1="20" x2="200" y2="150"/><line x1="100" y1="20" x2="200" y2="120"/>
+              </g>
+              <g stroke="#e0b26a" stroke-width="9" stroke-linecap="round">
+                <line x1="200" y1="70" x2="70" y2="200"/><line x1="200" y1="40" x2="40" y2="200"/><line x1="180" y1="20" x2="20" y2="180"/><line x1="150" y1="20" x2="20" y2="150"/><line x1="120" y1="20" x2="20" y2="120"/>
+              </g>
+            </g>
+            <circle cx="110" cy="110" r="70" fill="none" stroke="#a5763a" stroke-width="3"/>
+          </svg>
         </div>
         <h3>Geraardsbergse mattentaart</h3>
         <p>Onze specialiteit — het beschermde streekproduct, dagelijks vers gebakken.</p>
@@ -255,6 +294,16 @@ footer a { color: #fff; }
 
 <footer>
   <div class="wrap">
+    <svg class="foot-mark" viewBox="0 0 220 220">
+      <defs><clipPath id="tartClipFoot"><circle cx="110" cy="110" r="68"/></clipPath></defs>
+      <circle cx="110" cy="110" r="70" fill="#e8c078" stroke="#a5763a" stroke-width="3"/>
+      <circle cx="110" cy="110" r="60" fill="#f6e2ae"/>
+      <g clip-path="url(#tartClipFoot)">
+        <g stroke="#c99a52" stroke-width="9" stroke-linecap="round"><line x1="20" y1="70" x2="150" y2="200"/><line x1="20" y1="40" x2="180" y2="200"/><line x1="40" y1="20" x2="200" y2="180"/><line x1="70" y1="20" x2="200" y2="150"/><line x1="100" y1="20" x2="200" y2="120"/></g>
+        <g stroke="#e0b26a" stroke-width="9" stroke-linecap="round"><line x1="200" y1="70" x2="70" y2="200"/><line x1="200" y1="40" x2="40" y2="200"/><line x1="180" y1="20" x2="20" y2="180"/><line x1="150" y1="20" x2="20" y2="150"/><line x1="120" y1="20" x2="20" y2="120"/></g>
+      </g>
+      <circle cx="110" cy="110" r="70" fill="none" stroke="#a5763a" stroke-width="3"/>
+    </svg>
     <div class="foot-brand">Bakkerij Sarlar</div>
     <div>Rekestraat 27, 9500 Geraardsbergen &middot; 054 41 29 30</div>
     <div class="foot-note">Foto mattentaart: Volkov Vitaly, Wikimedia Commons (CC-BY 1.0)<br>Vrijblijvend ontwerpvoorstel door Team Jona Webdesign &middot; webdesignjona@gmail.com</div>
