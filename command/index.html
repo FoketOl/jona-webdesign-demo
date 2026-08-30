@@ -190,7 +190,20 @@ footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--border
   .stat-rail { grid-template-columns: repeat(2, 1fr); }
   .log-row { grid-template-columns: 1fr; gap: 4px; }
 }
+
+/* ---------- Locations map ---------- */
+.map-wrap { border: 1px solid var(--border); background: var(--bg-panel); padding: 4px; }
+#clientMap { height: 420px; width: 100%; filter: invert(1) hue-rotate(180deg) brightness(0.95) contrast(0.9); }
+.map-legend { display: flex; gap: 20px; padding: 12px 18px; font-family: var(--mono); font-size: 0.7rem; color: var(--ink-dim); border-top: 1px solid var(--border); }
+.map-legend span { display: inline-flex; align-items: center; gap: 6px; }
+.map-dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+.map-dot.pending { background: var(--magenta); box-shadow: 0 0 6px var(--magenta); }
+.map-dot.live { background: var(--green); box-shadow: 0 0 6px var(--green); }
+.leaflet-popup-content-wrapper, .leaflet-popup-tip { background: var(--bg-panel); color: var(--ink); border-radius: 0; }
+.leaflet-popup-content a { color: var(--cyan); }
+.leaflet-container { background: var(--bg); }
 </style>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
 </head>
 <body>
 
@@ -424,14 +437,26 @@ footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--border
   </div>
 
   <div class="section-head">
-    <div class="section-title"><span class="idx">02</span>Bezoekstatistieken</div>
+    <div class="section-title"><span class="idx">02</span>Locaties</div>
+    <div class="section-note">rood = pitch klaar, groen = klant is akkoord &amp; live (nog geen enkele)</div>
+  </div>
+  <div class="map-wrap">
+    <div id="clientMap"></div>
+    <div class="map-legend">
+      <span><span class="map-dot pending"></span>Pitch klaar (10)</span>
+      <span><span class="map-dot live"></span>Klant live (0)</span>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <div class="section-title"><span class="idx">03</span>Bezoekstatistieken</div>
   </div>
   <div class="stats-pending">
     Nog niet gekoppeld — vereist een <span class="highlight">GitHub Personal Access Token</span> (leesrecht op traffic-API van <code>jona-webdesign-demo</code>) om echte per-pagina bezoekcijfers te tonen. Geen enkel cijfer hierboven is verzonnen — zodra de token er is, komt hier live data i.p.v. deze melding.
   </div>
 
   <div class="section-head">
-    <div class="section-title"><span class="idx">03</span>Domeinen &amp; hosting</div>
+    <div class="section-title"><span class="idx">04</span>Domeinen &amp; hosting</div>
     <div class="section-note">registrars voor een echte lancering, geen klant-domeinen gekozen</div>
   </div>
   <div class="ref-grid">
@@ -442,7 +467,7 @@ footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--border
   </div>
 
   <div class="section-head">
-    <div class="section-title"><span class="idx">04</span>Buildlog</div>
+    <div class="section-title"><span class="idx">05</span>Buildlog</div>
   </div>
   <div class="log-panel">
     <div class="log-row"><span class="log-date">08.22</span><span class="log-tag">NEW</span><span class="log-msg">Oudenberghof + Schendelbeekhof — eerste twee klanten live</span></div>
@@ -506,6 +531,42 @@ document.addEventListener('keydown', function (e) {
 
   button.addEventListener("click", tryUnlock);
   input.addEventListener("keydown", function (e) { if (e.key === "Enter") tryUnlock(); });
+})();
+</script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script>
+(function () {
+  var LOCATIONS = [
+    { name: "Taverne Oudenberghof", lat: 50.7724713, lon: 3.8936428, url: "https://foketol.github.io/jona-webdesign-demo/oudenberghof-kaarslicht/" },
+    { name: "Restaurant Schendelbeekhof", lat: 50.7962678, lon: 3.8893582, url: "https://foketol.github.io/jona-webdesign-demo/schendelbeekhof-boerderij/" },
+    { name: "Taverne Stadhuis", lat: 50.7719082, lon: 3.8828373, url: "https://foketol.github.io/jona-webdesign-demo/stadhuis-retro-diner/" },
+    { name: "Coiffure Exclusief", lat: 50.7725007, lon: 3.8709160, url: "https://foketol.github.io/jona-webdesign-demo/coiffure-elegant/" },
+    { name: "'t Grof Zout", lat: 50.7693278, lon: 3.8761808, url: "https://foketol.github.io/jona-webdesign-demo/grofzout-refined/" },
+    { name: "Bakkerij Sarlar", lat: 50.7625630, lon: 3.8287421, url: "https://foketol.github.io/jona-webdesign-demo/sarlar-artisanaal/" },
+    { name: "Slagerij De Reuse", lat: 50.7685775, lon: 3.8726538, url: "https://foketol.github.io/jona-webdesign-demo/reuse-rustiek/" },
+    { name: "Thai Recept", lat: 50.7713980, lon: 3.8735690, url: "https://foketol.github.io/jona-webdesign-demo/thai-urban-nacht/" },
+    { name: "De Rozenberg", lat: 50.7715133, lon: 3.8691826, url: "https://foketol.github.io/jona-webdesign-demo/rozenberg-warm-oosters/" },
+    { name: "'t Lorreintje", lat: 50.7742791, lon: 3.8871295, url: "https://foketol.github.io/jona-webdesign-demo/lorreintje-landelijk/" }
+  ];
+
+  var mapEl = document.getElementById("clientMap");
+  if (!mapEl || typeof L === "undefined") return;
+
+  var map = L.map("clientMap", { scrollWheelZoom: false }).setView([50.7719, 3.8828], 12);
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: "&copy; OpenStreetMap contributors",
+    maxZoom: 18
+  }).addTo(map);
+
+  var pendingIcon = L.divIcon({
+    className: "", html: '<div style="width:14px;height:14px;border-radius:50%;background:#ff3d9a;box-shadow:0 0 10px #ff3d9a;border:2px solid #fff;"></div>',
+    iconSize: [14, 14], iconAnchor: [7, 7]
+  });
+
+  LOCATIONS.forEach(function (loc) {
+    L.marker([loc.lat, loc.lon], { icon: pendingIcon }).addTo(map)
+      .bindPopup('<strong>' + loc.name + '</strong><br><a href="' + loc.url + '" target="_blank" rel="noopener">bekijk demo</a>');
+  });
 })();
 </script>
 </body>
