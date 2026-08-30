@@ -103,6 +103,38 @@ header.site-nav { position: sticky; top: 0; z-index: 50; background: var(--green
 .timeline-step span { font-size: 0.78rem; color: var(--ink-soft); }
 @media (max-width: 780px) { .about-grid { grid-template-columns: 1fr; gap: 30px; } .timeline { flex-direction: column; gap: 14px; } .timeline-step::before { top: 6px; } .timeline-step { padding-left: 20px; padding-right: 0; } }
 
+/* ---------- Grain-border: cutting-board edge divider ---------- */
+.grain-border { width: 100%; height: 9px; background-repeat: repeat-x; background-position: center; background-size: 46px 9px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='46' height='9'%3E%3Crect width='46' height='9' fill='%236e5236'/%3E%3Cpath d='M0 2 Q11 0 23 2 T46 2' stroke='%235a4530' stroke-width='1' fill='none' opacity='.7'/%3E%3Cpath d='M0 6 Q11 4 23 6 T46 6' stroke='%233a2c1e' stroke-width='1' fill='none' opacity='.6'/%3E%3Ccircle cx='11' cy='4.5' r='1.1' fill='%233a2c1e' opacity='.5'/%3E%3Ccircle cx='34' cy='3' r='0.8' fill='%233a2c1e' opacity='.4'/%3E%3C/svg%3E");
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+/* ---------- Kraft-paper fibre texture (about section) ---------- */
+.about { background-image:
+    repeating-linear-gradient(115deg, rgba(180,113,60,0.05) 0px, rgba(180,113,60,0.05) 1px, transparent 1px, transparent 15px),
+    repeating-linear-gradient(25deg, rgba(42,35,28,0.035) 0px, rgba(42,35,28,0.035) 1px, transparent 1px, transparent 19px);
+}
+
+/* ---------- Traiteur: faint cleaver-pattern texture ---------- */
+#traiteur { position: relative; }
+.cleaver-texture { position: absolute; inset: 0; pointer-events: none; opacity: 0.4;
+  background-repeat: repeat; background-size: 130px 110px; background-position: center;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='130' height='110'%3E%3Cg transform='translate(65,55) rotate(-15) scale(0.55)' fill='%23ddccac'%3E%3Cpath d='M-42 30 L-42 -8 C-42 -26 -20 -36 6 -36 L52 -36 L52 30 Z'/%3E%3Crect x='-48' y='30' width='96' height='13' rx='3'/%3E%3C/g%3E%3C/svg%3E");
+}
+#traiteur .wrap { position: relative; z-index: 1; }
+
+/* ---------- Kraft price-tag: hanging twine-tag on info-cards ---------- */
+.info-card { position: relative; margin-top: 14px; }
+.info-card::before {
+  content: ""; position: absolute; top: -16px; left: 28px; width: 40px; height: 22px;
+  background: var(--kraft); border: 1px solid var(--border); transform: rotate(-7deg);
+  box-shadow: 0 4px 7px rgba(0,0,0,0.16); z-index: 1;
+}
+.info-card::after {
+  content: ""; position: absolute; top: -9px; left: 40px; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--card); border: 1px solid var(--ink-soft); transform: rotate(-7deg); z-index: 2;
+}
+
 /* ---------- Traiteur: cut-terminology cards ---------- */
 section { padding: 70px 0; }
 .section-kicker { font-family: var(--heading); font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--burgundy); font-weight: 600; margin-bottom: 10px; text-align: center; }
@@ -219,6 +251,7 @@ footer a { color: #e8e0cf; }
   </div>
 </section>
 
+<div class="grain-border"></div>
 <section class="about" id="over">
   <div class="wrap about-grid">
     <div class="about-image reveal">
@@ -242,7 +275,9 @@ footer a { color: #e8e0cf; }
   </div>
 </section>
 
+<div class="grain-border"></div>
 <section id="traiteur">
+  <div class="cleaver-texture" aria-hidden="true"></div>
   <div class="wrap">
     <div class="section-kicker">Traiteur</div>
     <h2 class="section-title">Voor elke gelegenheid</h2>
@@ -292,6 +327,7 @@ footer a { color: #e8e0cf; }
   </div>
 </section>
 
+<div class="grain-border"></div>
 <section id="praktisch">
   <div class="wrap">
     <div class="section-kicker">Praktisch</div>
