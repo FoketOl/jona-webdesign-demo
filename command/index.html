@@ -82,6 +82,25 @@ body {
 .clock-block .status-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--green); margin-right: 6px; box-shadow: 0 0 8px var(--green); animation: pulse 2.4s ease-in-out infinite; }
 @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
 
+.topbar-actions { display: flex; align-items: center; gap: 14px; }
+.mail-link { font-family: var(--mono); font-size: 0.72rem; color: var(--cyan); text-decoration: none; border: 1px solid var(--cyan-dim); padding: 6px 12px; white-space: nowrap; }
+.mail-link:hover { background: var(--cyan); color: var(--bg); }
+
+/* ---------- Login gate ---------- */
+.gate { position: fixed; inset: 0; z-index: 300; background: var(--bg); display: flex; align-items: center; justify-content: center; }
+.gate.is-unlocked { display: none; }
+.gate-box { border: 1px solid var(--border-bright); background: var(--bg-panel); padding: 40px 44px; text-align: center; max-width: 360px; }
+.gate-box .brand-mark { margin: 0 auto 18px; }
+.gate-box h1 { font-family: var(--display); font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
+.gate-box p { font-family: var(--mono); font-size: 0.74rem; color: var(--ink-dim); margin-bottom: 22px; }
+.gate-box input { width: 100%; background: var(--bg); border: 1px solid var(--border-bright); color: var(--ink); font-family: var(--mono); font-size: 0.9rem; padding: 11px 14px; margin-bottom: 12px; }
+.gate-box input:focus { outline: none; border-color: var(--green); }
+.gate-box button { width: 100%; background: var(--green); color: var(--bg); border: none; font-family: var(--display); font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; padding: 11px; cursor: pointer; }
+.gate-box button:hover { box-shadow: 0 0 16px rgba(57,255,138,0.5); }
+.gate-error { font-family: var(--mono); font-size: 0.72rem; color: var(--magenta); margin-top: 10px; min-height: 1em; }
+.app { display: none; }
+.app.is-visible { display: block; }
+
 /* ---------- Stat rail ---------- */
 .stat-rail { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin: 32px 0 40px; }
 .stat-cell { background: var(--bg-panel); padding: 20px 22px; }
@@ -120,8 +139,19 @@ body {
 .card-sector { font-family: var(--mono); font-size: 0.7rem; color: var(--ink-dim); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 4px; }
 .status-pill { font-family: var(--mono); font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; padding: 4px 9px; border: 1px solid var(--green); color: var(--green); text-shadow: 0 0 8px rgba(57,255,138,0.7); box-shadow: 0 0 10px rgba(57,255,138,0.15) inset; white-space: nowrap; flex-shrink: 0; }
 
-.card-meta { display: flex; gap: 16px; font-family: var(--mono); font-size: 0.72rem; color: var(--ink-dim); margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px dashed var(--border); }
+.card-meta { display: flex; gap: 16px; flex-wrap: wrap; font-family: var(--mono); font-size: 0.72rem; color: var(--ink-dim); margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px dashed var(--border); }
 .card-meta b { color: var(--ink); font-weight: 500; }
+.card-current { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+.card-current a { font-family: var(--mono); font-size: 0.7rem; color: var(--amber); text-decoration: none; border-bottom: 1px dashed var(--amber); }
+.card-current a:hover { border-bottom-style: solid; }
+.host-tag { font-family: var(--mono); font-size: 0.62rem; color: var(--ink-dim); background: var(--bg); border: 1px solid var(--border); padding: 2px 7px; white-space: nowrap; }
+
+/* ---------- Domains/hosting reference ---------- */
+.ref-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
+.ref-card { background: var(--bg-panel); border: 1px dashed var(--border-bright); padding: 16px 18px; }
+.ref-card a { font-family: var(--display); font-size: 0.95rem; color: var(--cyan); text-decoration: none; }
+.ref-card a:hover { color: var(--green); }
+.ref-card p { font-family: var(--mono); font-size: 0.68rem; color: var(--ink-dim); margin-top: 6px; }
 
 .variant-list { display: flex; flex-direction: column; gap: 8px; }
 .variant-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
@@ -166,6 +196,28 @@ footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--border
 
 <div class="scanlines" aria-hidden="true"></div>
 
+<!--
+  Login-gate (2026-08-30, op vraag van Olivier): dit is een client-side wachtwoord-scherm,
+  GEEN echte toegangscontrole. Statische GitHub Pages-hosting heeft geen backend/auth-laag —
+  het wachtwoord (of de hash ervan) staat onvermijdelijk in de paginabron, dus iemand die
+  "view source" gebruikt kan het vinden. Dit houdt casuale bezoekers/klanten buiten (het doel
+  dat Olivier aangaf), maar is GEEN vervanging voor echte toegangscontrole (bv. Cloudflare
+  Access met een echte login). Wachtwoord: zie secrets.md in ~/.config/jonaphone-mail/ of vraag
+  Olivier — bewust niet hier in platte tekst, enkel de SHA-256-hash staat in de JS hieronder.
+-->
+<div class="gate" id="gate">
+  <div class="gate-box">
+    <div class="brand-mark"></div>
+    <h1>JONA//COMMAND</h1>
+    <p>Enkel voor Olivier &amp; Jonathan</p>
+    <input type="password" id="gatePassword" placeholder="Wachtwoord" autocomplete="off">
+    <button type="button" id="gateSubmit">Ontgrendel</button>
+    <div class="gate-error" id="gateError"></div>
+  </div>
+</div>
+
+<div class="app" id="app">
+
 <div class="topbar">
   <div class="topbar-inner">
     <div class="brand">
@@ -175,7 +227,10 @@ footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--border
         <div class="brand-sub">Interne dashboard — Olivier &amp; Jonathan</div>
       </div>
     </div>
-    <div class="clock-block"><span class="status-dot"></span>ALLE SYSTEMEN LIVE &middot; laatst bijgewerkt 2026-08-30</div>
+    <div class="topbar-actions">
+      <a class="mail-link" href="https://mail.google.com/mail/u/0/#inbox" target="_blank" rel="noopener">&#9993; Mail webdesignjona@gmail.com</a>
+      <div class="clock-block"><span class="status-dot"></span>ALLE SYSTEMEN LIVE &middot; laatst bijgewerkt 2026-08-30</div>
+    </div>
   </div>
 </div>
 
@@ -216,6 +271,7 @@ footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--border
         </div>
         <div class="status-pill">Live</div>
       </div>
+      <div class="card-current"><a href="https://oudenberghof.be" target="_blank" rel="noopener">huidige site: oudenberghof.be</a><span class="host-tag">Gandi SAS</span></div>
       <div class="card-meta"><span>Gebouwd <b>22.08</b></span><span><b>3</b> varianten</span></div>
       <div class="variant-list">
         <div class="variant-row"><span class="variant-name">Kaarslicht</span><div class="variant-links"><a href="https://foketol.github.io/jona-webdesign-demo/oudenberghof-kaarslicht/" target="_blank" rel="noopener">site</a><a class="secondary" href="https://foketol.github.io/jona-webdesign-demo/oudenberghof-kaarslicht/bestellen.html" target="_blank" rel="noopener">bestel</a></div></div>
@@ -232,6 +288,7 @@ footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--border
         </div>
         <div class="status-pill">Live</div>
       </div>
+      <div class="card-current"><a href="https://schendelbeekhof.be" target="_blank" rel="noopener">huidige site: schendelbeekhof.be</a><span class="host-tag">Wix.com</span></div>
       <div class="card-meta"><span>Gebouwd <b>22.08</b></span><span><b>3</b> varianten</span></div>
       <div class="variant-list">
         <div class="variant-row"><span class="variant-name">Boerderij</span><div class="variant-links"><a href="https://foketol.github.io/jona-webdesign-demo/schendelbeekhof-boerderij/" target="_blank" rel="noopener">site</a><a class="secondary" href="https://foketol.github.io/jona-webdesign-demo/schendelbeekhof-boerderij/reserveren.html" target="_blank" rel="noopener">reserveer</a></div></div>
@@ -248,6 +305,7 @@ footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--border
         </div>
         <div class="status-pill">Live</div>
       </div>
+      <div class="card-current"><a href="https://tavernestadhuis.com" target="_blank" rel="noopener">huidige site: tavernestadhuis.com</a><span class="host-tag">One.com</span></div>
       <div class="card-meta"><span>Gebouwd <b>23.08</b></span><span><b>3</b> varianten</span></div>
       <div class="variant-list">
         <div class="variant-row"><span class="variant-name">Retro Diner</span><div class="variant-links"><a href="https://foketol.github.io/jona-webdesign-demo/stadhuis-retro-diner/" target="_blank" rel="noopener">site</a><a class="secondary" href="https://foketol.github.io/jona-webdesign-demo/stadhuis-retro-diner/reserveren.html" target="_blank" rel="noopener">reserveer</a></div></div>
@@ -264,6 +322,7 @@ footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--border
         </div>
         <div class="status-pill">Live</div>
       </div>
+      <div class="card-current"><a href="https://coiffure-exclusief.be" target="_blank" rel="noopener">huidige site: coiffure-exclusief.be</a><span class="host-tag">One.com</span></div>
       <div class="card-meta"><span>Gebouwd <b>29.08</b></span><span><b>2</b> varianten</span></div>
       <div class="variant-list">
         <div class="variant-row"><span class="variant-name">Elegant</span><div class="variant-links"><a href="https://foketol.github.io/jona-webdesign-demo/coiffure-elegant/" target="_blank" rel="noopener">site</a></div></div>
@@ -279,6 +338,7 @@ footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--border
         </div>
         <div class="status-pill">Live</div>
       </div>
+      <div class="card-current"><a href="https://grofzout.be" target="_blank" rel="noopener">huidige site: grofzout.be</a><span class="host-tag">Combell NV</span></div>
       <div class="card-meta"><span>Gebouwd <b>29.08</b></span><span><b>2</b> varianten</span></div>
       <div class="variant-list">
         <div class="variant-row"><span class="variant-name">Refined</span><div class="variant-links"><a href="https://foketol.github.io/jona-webdesign-demo/grofzout-refined/" target="_blank" rel="noopener">site</a></div></div>
@@ -294,6 +354,7 @@ footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--border
         </div>
         <div class="status-pill">Live</div>
       </div>
+      <div class="card-current"><a href="https://sarlar.be" target="_blank" rel="noopener">huidige site: sarlar.be</a><span class="host-tag">Wix.com</span></div>
       <div class="card-meta"><span>Gebouwd <b>29.08</b></span><span><b>1</b> variant</span></div>
       <div class="variant-list">
         <div class="variant-row"><span class="variant-name">Artisanaal</span><div class="variant-links"><a href="https://foketol.github.io/jona-webdesign-demo/sarlar-artisanaal/" target="_blank" rel="noopener">site</a></div></div>
@@ -308,6 +369,7 @@ footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--border
         </div>
         <div class="status-pill">Live</div>
       </div>
+      <div class="card-current"><a href="https://slagerijdereuse-geraardsbergen.be" target="_blank" rel="noopener">huidige site: slagerijdereuse-geraardsbergen.be</a><span class="host-tag">Dstny BE</span></div>
       <div class="card-meta"><span>Gebouwd <b>29.08</b></span><span><b>1</b> variant</span></div>
       <div class="variant-list">
         <div class="variant-row"><span class="variant-name">Rustiek</span><div class="variant-links"><a href="https://foketol.github.io/jona-webdesign-demo/reuse-rustiek/" target="_blank" rel="noopener">site</a></div></div>
@@ -322,6 +384,7 @@ footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--border
         </div>
         <div class="status-pill">Live</div>
       </div>
+      <div class="card-current"><a href="https://thairecept.be" target="_blank" rel="noopener">huidige site: thairecept.be</a><span class="host-tag">OVH SAS</span></div>
       <div class="card-meta"><span>Gebouwd <b>29.08</b></span><span><b>1</b> variant</span></div>
       <div class="variant-list">
         <div class="variant-row"><span class="variant-name">Urban Nacht</span><div class="variant-links"><a href="https://foketol.github.io/jona-webdesign-demo/thai-urban-nacht/" target="_blank" rel="noopener">site</a></div></div>
@@ -336,6 +399,7 @@ footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--border
         </div>
         <div class="status-pill">Live</div>
       </div>
+      <div class="card-current"><a href="https://restaurantderozenberg.com" target="_blank" rel="noopener">huidige site: restaurantderozenberg.com</a><span class="host-tag">Hostinger</span></div>
       <div class="card-meta"><span>Gebouwd <b>29.08</b></span><span><b>1</b> variant</span></div>
       <div class="variant-list">
         <div class="variant-row"><span class="variant-name">Warm Oosters</span><div class="variant-links"><a href="https://foketol.github.io/jona-webdesign-demo/rozenberg-warm-oosters/" target="_blank" rel="noopener">site</a></div></div>
@@ -350,40 +414,13 @@ footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--border
         </div>
         <div class="status-pill">Live</div>
       </div>
+      <div class="card-current"><a href="https://tlorreintje.be" target="_blank" rel="noopener">huidige site: tlorreintje.be</a><span class="host-tag">Combell NV</span></div>
       <div class="card-meta"><span>Gebouwd <b>29.08</b></span><span><b>1</b> variant</span></div>
       <div class="variant-list">
         <div class="variant-row"><span class="variant-name">Landelijk</span><div class="variant-links"><a href="https://foketol.github.io/jona-webdesign-demo/lorreintje-landelijk/" target="_blank" rel="noopener">site</a></div></div>
       </div>
     </div>
 
-  </div>
-
-  <div class="section-head" style="display:none;">
-    <div class="section-title"><span class="idx">02</span>In de pijplijn</div>
-    <div class="section-note">geverifieerd, nog te bouwen</div>
-  </div>
-
-  <div class="pipeline-grid" style="display:none;">
-    <div class="pipe-card">
-      <div class="pipe-name">Slagerij De Reuse</div>
-      <div class="pipe-sector">Slager / traiteur</div>
-      <div class="pipe-status">&#9679; onderzoek klaar</div>
-    </div>
-    <div class="pipe-card">
-      <div class="pipe-name">Thai Recept</div>
-      <div class="pipe-sector">Thais restaurant</div>
-      <div class="pipe-status">&#9679; wachtrij</div>
-    </div>
-    <div class="pipe-card">
-      <div class="pipe-name">De Rozenberg</div>
-      <div class="pipe-sector">Chinees restaurant</div>
-      <div class="pipe-status">&#9679; wachtrij</div>
-    </div>
-    <div class="pipe-card">
-      <div class="pipe-name">'t Lorreintje</div>
-      <div class="pipe-sector">Bistro + feestzaal</div>
-      <div class="pipe-status">&#9679; wachtrij</div>
-    </div>
   </div>
 
   <div class="section-head">
@@ -394,7 +431,18 @@ footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--border
   </div>
 
   <div class="section-head">
-    <div class="section-title"><span class="idx">03</span>Buildlog</div>
+    <div class="section-title"><span class="idx">03</span>Domeinen &amp; hosting</div>
+    <div class="section-note">registrars voor een echte lancering, geen klant-domeinen gekozen</div>
+  </div>
+  <div class="ref-grid">
+    <div class="ref-card"><a href="https://www.combell.com/nl/domeinnamen" target="_blank" rel="noopener">Combell</a><p>Belgische host, .be-registratie + hosting in &eacute;&eacute;n</p></div>
+    <div class="ref-card"><a href="https://www.one.com/nl/domeinnaam" target="_blank" rel="noopener">One.com</a><p>Twee bestaande klanten draaien hier al op (zie hosts hieronder)</p></div>
+    <div class="ref-card"><a href="https://www.ovhcloud.com/nl/domains/" target="_blank" rel="noopener">OVH</a><p>Goedkope .be/.com, geen bundel-hosting nodig als wij zelf hosten</p></div>
+    <div class="ref-card"><a href="https://www.dnsbelgium.be/nl" target="_blank" rel="noopener">DNS Belgium</a><p>Officieel .be-registry — beschikbaarheid rechtstreeks checken</p></div>
+  </div>
+
+  <div class="section-head">
+    <div class="section-title"><span class="idx">04</span>Buildlog</div>
   </div>
   <div class="log-panel">
     <div class="log-row"><span class="log-date">08.22</span><span class="log-tag">NEW</span><span class="log-msg">Oudenberghof + Schendelbeekhof — eerste twee klanten live</span></div>
@@ -405,17 +453,60 @@ footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--border
     <div class="log-row"><span class="log-date">08.29</span><span class="log-tag">FIX</span><span class="log-msg">Publieke klantenlijst van demo-root verwijderd (privacy-lek)</span></div>
     <div class="log-row"><span class="log-date">08.30</span><span class="log-tag">NEW</span><span class="log-msg">Slagerij De Reuse, Thai Recept, De Rozenberg, 't Lorreintje toegevoegd — 10/10 bereikt</span></div>
     <div class="log-row"><span class="log-date">08.30</span><span class="log-tag">FIX</span><span class="log-msg">Scroll-reveal-animaties verplicht op elke variant na Olivier's feedback op Sarlar</span></div>
+    <div class="log-row"><span class="log-date">08.30</span><span class="log-tag">NEW</span><span class="log-msg">De Rozenberg v5: volledige menukaart (115 gerechten) + eigen bestelmodule</span></div>
+    <div class="log-row"><span class="log-date">08.30</span><span class="log-tag">FIX</span><span class="log-msg">Login-scherm toegevoegd (client-side, geen backend-auth) + huidige-site/host-info per klant</span></div>
   </div>
 
   <footer>JONA//COMMAND — intern, niet gedeeld met klanten &middot; webdesignjona@gmail.com</footer>
 
 </div>
 
+</div><!-- /.app -->
+
 <script>
 document.addEventListener('contextmenu', function (e) { e.preventDefault(); });
 document.addEventListener('keydown', function (e) {
   if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && ['I','J','C'].includes(e.key))) e.preventDefault();
 });
+
+// Login-gate: client-side only, see HTML comment above the gate markup for the honest caveat.
+(function () {
+  var CORRECT_HASH = "d96c9897c16bf5c1e8b4b59b6fd4d2ca614dd3d6da23bad987d9e6fe777de3ba"; // sha256 of the password — see secrets.md
+  var SESSION_KEY = "jona-command-unlocked";
+
+  async function sha256(text) {
+    var enc = new TextEncoder().encode(text);
+    var buf = await crypto.subtle.digest("SHA-256", enc);
+    return Array.from(new Uint8Array(buf)).map(function (b) { return b.toString(16).padStart(2, "0"); }).join("");
+  }
+
+  var gate = document.getElementById("gate");
+  var app = document.getElementById("app");
+  var input = document.getElementById("gatePassword");
+  var button = document.getElementById("gateSubmit");
+  var error = document.getElementById("gateError");
+
+  function unlock() {
+    gate.classList.add("is-unlocked");
+    app.classList.add("is-visible");
+    try { sessionStorage.setItem(SESSION_KEY, "1"); } catch (e) {}
+  }
+
+  if (sessionStorage.getItem(SESSION_KEY) === "1") unlock();
+
+  async function tryUnlock() {
+    var hash = await sha256(input.value);
+    if (hash === CORRECT_HASH) {
+      unlock();
+    } else {
+      error.textContent = "Verkeerd wachtwoord.";
+      input.value = "";
+    }
+  }
+
+  button.addEventListener("click", tryUnlock);
+  input.addEventListener("keydown", function (e) { if (e.key === "Enter") tryUnlock(); });
+})();
 </script>
 </body>
 </html>
