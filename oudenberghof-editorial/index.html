@@ -89,6 +89,14 @@ img{max-width:100%}
 .hero-meta{position:absolute;bottom:1.8rem;left:4vw;right:4vw;display:flex;justify-content:space-between;color:#d4d0c4;font-size:.72rem;letter-spacing:.04em}
 
 .section-shell{max-width:var(--max);margin:auto;padding:8rem 4vw}
+.dishes-list{display:grid;grid-template-columns:1fr 1fr;gap:0 3rem;margin-top:3rem;max-width:900px}
+.dish-row{display:flex;justify-content:space-between;align-items:baseline;padding:1.1rem 0;border-bottom:1px solid var(--line);gap:1rem}
+.dish-row:last-child,.dish-row:nth-last-child(2){border-bottom:none}
+.dish-row .dish-name{font-family:var(--serif);font-size:1.05rem;color:var(--text)}
+.dish-row .dish-desc{display:block;font-size:.8rem;color:var(--muted);margin-top:.2rem}
+.dish-row .dish-price{font-family:var(--serif);color:var(--gold2);white-space:nowrap;font-size:1rem}
+.dishes-note{margin-top:2.5rem;color:var(--muted);font-size:.82rem}
+@media (max-width:780px){.dishes-list{grid-template-columns:1fr}.dish-row:nth-last-child(2){border-bottom:1px solid var(--line)}}
 .story-grid{display:grid;grid-template-columns:1fr 1fr;gap:8vw;margin-top:2.5rem}
 .display-copy{font-family:var(--serif);font-size:clamp(3rem,6vw,6rem);line-height:.95;margin:0;letter-spacing:-.02em}
 .body-copy{max-width:560px;color:var(--muted);font-size:1.02rem}
@@ -343,6 +351,7 @@ img{max-width:100%}
   <nav class="main-nav" aria-label="Hoofdnavigatie">
     <a href="#verhaal">Verhaal</a>
     <a href="#sfeer">Sfeer</a>
+    <a href="#kaart">Kaart</a>
     <a href="#praktisch">Praktisch</a>
     <a href="#route">Route</a>
     <a class="nav-order" href="tel:+3254412854">Bel nu <span>&#8599;</span></a>
@@ -351,6 +360,7 @@ img{max-width:100%}
   <nav id="mobile-nav" class="mobile-nav" aria-label="Mobiele navigatie">
     <a href="#verhaal">Verhaal</a>
     <a href="#sfeer">Sfeer</a>
+    <a href="#kaart">Kaart</a>
     <a href="#praktisch">Praktisch</a>
     <a href="#route">Route</a>
     <a href="tel:+3254412854">Bel nu &#8599;</a>
@@ -410,8 +420,26 @@ img{max-width:100%}
     </div>
   </section>
 
+  <section id="kaart" class="dishes section-shell">
+    <div class="section-kicker">02 &mdash; Op de kaart</div>
+    <div class="ornament"><span></span><span></span></div>
+    <p class="display-copy" style="font-size:clamp(2.2rem,4.5vw,3.4rem);">Vertrouwde kost,<br />met zorg bereid.</p>
+    <p class="body-copy">Ook gekend voor de brochette en de mosselen &mdash; een greep uit wat er op tafel komt.</p>
+    <div class="dishes-list">
+      <div class="dish-row"><span class="dish-name">Brochette<span class="dish-desc">varkensvlees, fris slaatje, verse frietjes</span></span><span class="dish-price">&euro;26,00</span></div>
+      <div class="dish-row"><span class="dish-name">Stoofvlees met frietjes<span class="dish-desc">runderwangen, Pater Lieven donker</span></span><span class="dish-price">&euro;23,80</span></div>
+      <div class="dish-row"><span class="dish-name">Steak natuur<span class="dish-desc">250g, natuursaus, fris slaatje</span></span><span class="dish-price">&euro;25,90</span></div>
+      <div class="dish-row"><span class="dish-name">Paling in het groen<span class="dish-desc">huisbereid, verse frietjes</span></span><span class="dish-price">&euro;35,90</span></div>
+      <div class="dish-row"><span class="dish-name">Scampi maison<span class="dish-desc">9 stuks, licht pikante tomatenroomsaus</span></span><span class="dish-price">&euro;29,80</span></div>
+      <div class="dish-row"><span class="dish-name">Vol au vent<span class="dish-desc">huisbereid, fris slaatje</span></span><span class="dish-price">&euro;22,70</span></div>
+      <div class="dish-row"><span class="dish-name">Artisanale garnaalkroketten<span class="dish-desc">2 stuks, fris slaatje</span></span><span class="dish-price">&euro;17,80</span></div>
+      <div class="dish-row"><span class="dish-name">Mosselen<span class="dish-desc">seizoensgebonden specialiteit</span></span><span class="dish-price">op aanvraag</span></div>
+    </div>
+    <p class="dishes-note">Volledige kaart en actuele prijzen: eigen bestelplatform, oudenberghoftakeaway.be.</p>
+  </section>
+
   <section id="praktisch" class="practical section-shell">
-    <div class="section-kicker">02 &mdash; Praktisch</div>
+    <div class="section-kicker">03 &mdash; Praktisch</div>
     <div class="practical-grid">
       <div>
         <h2>Kom langs wanneer<br />het jou past.</h2>
