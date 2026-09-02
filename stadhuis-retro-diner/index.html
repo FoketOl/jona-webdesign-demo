@@ -153,10 +153,26 @@ img { max-width: 100%; display: block; }
 .beer-count strong { font-family: "Alfa Slab One", sans-serif; font-size: 2.2rem; line-height: 1; }
 .beer-count span { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 2px; }
 .beer-styles { display: flex; gap: clamp(0.9rem, 3vw, 1.6rem); flex-wrap: wrap; flex: 1; }
-.beer-style { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; width: 64px; }
-.beer-style svg { width: 30px; height: 38px; }
-.beer-style span { font-size: 0.7rem; color: var(--ink-muted); text-align: center; font-weight: 600; }
-@media (max-width: 560px) { .beer-showcase { justify-content: center; text-align: center; } }
+.beer-style { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; width: 64px; background: none; border: none; cursor: pointer; padding: 6px; border-radius: 10px; transition: background 0.2s ease, transform 0.2s ease; }
+.beer-style:hover, .beer-style:focus-visible { background: var(--cream); transform: translateY(-3px); }
+.beer-style svg { width: 30px; height: 38px; pointer-events: none; }
+.beer-style span { font-size: 0.7rem; color: var(--ink-muted); text-align: center; font-weight: 600; pointer-events: none; }
+.beer-hint { flex-basis: 100%; font-size: 0.72rem; color: var(--ink-muted); margin-top: 0.6rem; text-align: right; }
+@media (max-width: 560px) { .beer-showcase { justify-content: center; text-align: center; } .beer-hint { text-align: center; } }
+
+/* ---------- Beer modal ---------- */
+.beer-modal[hidden] { display: none; }
+.beer-modal { position: fixed; inset: 0; z-index: 200; display: flex; align-items: center; justify-content: center; padding: 24px; }
+.beer-modal__backdrop { position: absolute; inset: 0; background: rgba(26,20,20,0.6); }
+.beer-modal__panel { position: relative; background: var(--panel); border-radius: var(--radius); padding: 2rem; max-width: 380px; width: 100%; box-shadow: 0 30px 60px -20px rgba(0,0,0,0.5); border-top: 6px solid var(--red); }
+.beer-modal__close { position: absolute; top: 10px; right: 14px; background: none; border: none; font-size: 1.6rem; line-height: 1; color: var(--ink-muted); cursor: pointer; }
+.beer-modal__panel h3 { font-family: "Alfa Slab One", sans-serif; font-size: 1.4rem; color: var(--red-strong); margin-bottom: 1rem; text-transform: uppercase; }
+.beer-modal__list { list-style: none; padding: 0; margin: 0; }
+.beer-modal__list li { padding: 0.6rem 0; border-bottom: 1px dashed var(--border); display: flex; justify-content: space-between; gap: 12px; }
+.beer-modal__list li:last-child { border-bottom: none; }
+.beer-modal__list .b-name { font-weight: 700; color: var(--ink); }
+.beer-modal__list .b-abv { font-size: 0.78rem; color: var(--ink-muted); white-space: nowrap; }
+.beer-modal__hint { margin-top: 1.2rem; font-size: 0.72rem; color: var(--ink-muted); font-style: italic; }
 
 .practical__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
 @media (max-width: 900px) { .practical__grid { grid-template-columns: repeat(2, 1fr); } }
@@ -273,13 +289,14 @@ footer.site-footer { text-align: center; padding: 2rem; font-size: 0.82rem; colo
       <div class="beer-showcase">
         <div class="beer-count"><strong>70+</strong><span>bieren</span></div>
         <div class="beer-styles">
-          <div class="beer-style"><svg viewBox="0 0 24 30" aria-hidden="true"><path d="M4 3 L6 21 Q12 25 18 21 L20 3 Z" fill="#e8a93a" stroke="#1a1414" stroke-width="1.3" stroke-linejoin="round"/><line x1="12" y1="25" x2="12" y2="28" stroke="#1a1414" stroke-width="1.3"/><line x1="8" y1="28.5" x2="16" y2="28.5" stroke="#1a1414" stroke-width="1.3" stroke-linecap="round"/></svg><span>Tripel</span></div>
-          <div class="beer-style"><svg viewBox="0 0 24 30" aria-hidden="true"><path d="M4 3 L6 21 Q12 25 18 21 L20 3 Z" fill="#f0c15c" stroke="#1a1414" stroke-width="1.3" stroke-linejoin="round"/><line x1="12" y1="25" x2="12" y2="28" stroke="#1a1414" stroke-width="1.3"/><line x1="8" y1="28.5" x2="16" y2="28.5" stroke="#1a1414" stroke-width="1.3" stroke-linecap="round"/></svg><span>Blond</span></div>
-          <div class="beer-style"><svg viewBox="0 0 24 30" aria-hidden="true"><path d="M4 3 L6 21 Q12 25 18 21 L20 3 Z" fill="#a8541e" stroke="#1a1414" stroke-width="1.3" stroke-linejoin="round"/><line x1="12" y1="25" x2="12" y2="28" stroke="#1a1414" stroke-width="1.3"/><line x1="8" y1="28.5" x2="16" y2="28.5" stroke="#1a1414" stroke-width="1.3" stroke-linecap="round"/></svg><span>Dubbel</span></div>
-          <div class="beer-style"><svg viewBox="0 0 24 30" aria-hidden="true"><path d="M4 3 L6 21 Q12 25 18 21 L20 3 Z" fill="#2b1a12" stroke="#1a1414" stroke-width="1.3" stroke-linejoin="round"/><line x1="12" y1="25" x2="12" y2="28" stroke="#1a1414" stroke-width="1.3"/><line x1="8" y1="28.5" x2="16" y2="28.5" stroke="#1a1414" stroke-width="1.3" stroke-linecap="round"/></svg><span>Stout</span></div>
-          <div class="beer-style"><svg viewBox="0 0 24 30" aria-hidden="true"><path d="M4 3 L6 21 Q12 25 18 21 L20 3 Z" fill="#f2e8d5" stroke="#1a1414" stroke-width="1.3" stroke-linejoin="round"/><line x1="12" y1="25" x2="12" y2="28" stroke="#1a1414" stroke-width="1.3"/><line x1="8" y1="28.5" x2="16" y2="28.5" stroke="#1a1414" stroke-width="1.3" stroke-linecap="round"/></svg><span>Witbier</span></div>
-          <div class="beer-style"><svg viewBox="0 0 24 30" aria-hidden="true"><path d="M4 3 L6 21 Q12 25 18 21 L20 3 Z" fill="#c1272d" stroke="#1a1414" stroke-width="1.3" stroke-linejoin="round"/><line x1="12" y1="25" x2="12" y2="28" stroke="#1a1414" stroke-width="1.3"/><line x1="8" y1="28.5" x2="16" y2="28.5" stroke="#1a1414" stroke-width="1.3" stroke-linecap="round"/></svg><span>Kriek</span></div>
+          <button type="button" class="beer-style" data-style="tripel"><svg viewBox="0 0 24 30" aria-hidden="true"><path d="M4 3 L6 21 Q12 25 18 21 L20 3 Z" fill="#e8a93a" stroke="#1a1414" stroke-width="1.3" stroke-linejoin="round"/><line x1="12" y1="25" x2="12" y2="28" stroke="#1a1414" stroke-width="1.3"/><line x1="8" y1="28.5" x2="16" y2="28.5" stroke="#1a1414" stroke-width="1.3" stroke-linecap="round"/></svg><span>Tripel</span></button>
+          <button type="button" class="beer-style" data-style="blond"><svg viewBox="0 0 24 30" aria-hidden="true"><path d="M4 3 L6 21 Q12 25 18 21 L20 3 Z" fill="#f0c15c" stroke="#1a1414" stroke-width="1.3" stroke-linejoin="round"/><line x1="12" y1="25" x2="12" y2="28" stroke="#1a1414" stroke-width="1.3"/><line x1="8" y1="28.5" x2="16" y2="28.5" stroke="#1a1414" stroke-width="1.3" stroke-linecap="round"/></svg><span>Blond</span></button>
+          <button type="button" class="beer-style" data-style="dubbel"><svg viewBox="0 0 24 30" aria-hidden="true"><path d="M4 3 L6 21 Q12 25 18 21 L20 3 Z" fill="#a8541e" stroke="#1a1414" stroke-width="1.3" stroke-linejoin="round"/><line x1="12" y1="25" x2="12" y2="28" stroke="#1a1414" stroke-width="1.3"/><line x1="8" y1="28.5" x2="16" y2="28.5" stroke="#1a1414" stroke-width="1.3" stroke-linecap="round"/></svg><span>Dubbel</span></button>
+          <button type="button" class="beer-style" data-style="stout"><svg viewBox="0 0 24 30" aria-hidden="true"><path d="M4 3 L6 21 Q12 25 18 21 L20 3 Z" fill="#2b1a12" stroke="#1a1414" stroke-width="1.3" stroke-linejoin="round"/><line x1="12" y1="25" x2="12" y2="28" stroke="#1a1414" stroke-width="1.3"/><line x1="8" y1="28.5" x2="16" y2="28.5" stroke="#1a1414" stroke-width="1.3" stroke-linecap="round"/></svg><span>Stout</span></button>
+          <button type="button" class="beer-style" data-style="witbier"><svg viewBox="0 0 24 30" aria-hidden="true"><path d="M4 3 L6 21 Q12 25 18 21 L20 3 Z" fill="#f2e8d5" stroke="#1a1414" stroke-width="1.3" stroke-linejoin="round"/><line x1="12" y1="25" x2="12" y2="28" stroke="#1a1414" stroke-width="1.3"/><line x1="8" y1="28.5" x2="16" y2="28.5" stroke="#1a1414" stroke-width="1.3" stroke-linecap="round"/></svg><span>Witbier</span></button>
+          <button type="button" class="beer-style" data-style="kriek"><svg viewBox="0 0 24 30" aria-hidden="true"><path d="M4 3 L6 21 Q12 25 18 21 L20 3 Z" fill="#c1272d" stroke="#1a1414" stroke-width="1.3" stroke-linejoin="round"/><line x1="12" y1="25" x2="12" y2="28" stroke="#1a1414" stroke-width="1.3"/><line x1="8" y1="28.5" x2="16" y2="28.5" stroke="#1a1414" stroke-width="1.3" stroke-linecap="round"/></svg><span>Kriek</span></button>
         </div>
+        <p class="beer-hint">Klik op een stijl voor voorbeelden &darr;</p>
       </div>
       <div class="menu__cats">
         <div>
@@ -359,6 +376,16 @@ footer.site-footer { text-align: center; padding: 2rem; font-size: 0.82rem; colo
 
 <footer class="site-footer">Vrijblijvend ontwerpvoorstel — Jona Webdesign · <a href="mailto:webdesignjona@gmail.com">webdesignjona@gmail.com</a></footer>
 
+<div class="beer-modal" id="beerModal" hidden>
+  <div class="beer-modal__backdrop" data-beer-close></div>
+  <div class="beer-modal__panel" role="dialog" aria-modal="true" aria-labelledby="beerModalTitle">
+    <button type="button" class="beer-modal__close" data-beer-close aria-label="Sluiten">&times;</button>
+    <h3 id="beerModalTitle"></h3>
+    <ul class="beer-modal__list"></ul>
+    <p class="beer-modal__hint">Voorbeeldassortiment ter illustratie &mdash; definitieve bierkaart wordt samengesteld in overleg met de zaak.</p>
+  </div>
+</div>
+
 <script>const revealEls = document.querySelectorAll(".reveal");
 if ("IntersectionObserver" in window) {
   const io = new IntersectionObserver(
@@ -376,6 +403,70 @@ if ("IntersectionObserver" in window) {
 } else {
   revealEls.forEach((el) => el.classList.add("is-visible"));
 }
+
+/* ---------- Beer style modal (voorbeeldassortiment, fictief -- zie beer-modal__hint) ---------- */
+(function () {
+  const BEER_DATA = {
+    tripel: { label: "Tripel", beers: [
+      { name: "Stadhuis Tripel", abv: "8,5%" },
+      { name: "Gouden Muur", abv: "9%" },
+    ]},
+    blond: { label: "Blond", beers: [
+      { name: "Stadhuis Blond", abv: "6,5%" },
+      { name: "Zonnepoort", abv: "7%" },
+    ]},
+    dubbel: { label: "Dubbel", beers: [
+      { name: "Bruine Toren", abv: "7,5%" },
+      { name: "Abtsklok", abv: "8%" },
+    ]},
+    stout: { label: "Stout", beers: [
+      { name: "Zwarte Kater", abv: "6%" },
+      { name: "Nachtwacht Stout", abv: "7%" },
+    ]},
+    witbier: { label: "Witbier", beers: [
+      { name: "Torenwit", abv: "5%" },
+      { name: "Lentebries", abv: "4,8%" },
+    ]},
+    kriek: { label: "Kriek", beers: [
+      { name: "Kersentoren", abv: "5,5%" },
+      { name: "Rode Poort", abv: "6%" },
+    ]},
+  };
+
+  const modal = document.getElementById("beerModal");
+  if (!modal) return;
+  const titleEl = modal.querySelector("#beerModalTitle");
+  const listEl = modal.querySelector(".beer-modal__list");
+  let lastFocused = null;
+
+  function openModal(styleKey) {
+    const data = BEER_DATA[styleKey];
+    if (!data) return;
+    titleEl.textContent = data.label;
+    listEl.innerHTML = data.beers.map(function (b) {
+      return '<li><span class="b-name">' + b.name + '</span><span class="b-abv">' + b.abv + '</span></li>';
+    }).join("");
+    lastFocused = document.activeElement;
+    modal.hidden = false;
+    modal.querySelector(".beer-modal__close").focus();
+  }
+  function closeModal() {
+    modal.hidden = true;
+    if (lastFocused) lastFocused.focus();
+  }
+
+  document.querySelectorAll(".beer-style").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      openModal(btn.dataset.style);
+    });
+  });
+  modal.querySelectorAll("[data-beer-close]").forEach(function (el) {
+    el.addEventListener("click", closeModal);
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && !modal.hidden) closeModal();
+  });
+})();
 </script>
 </body>
 </html>

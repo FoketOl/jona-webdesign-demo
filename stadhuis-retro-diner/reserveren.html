@@ -144,10 +144,26 @@ img { max-width: 100%; display: block; }
 .beer-count strong { font-family: "Alfa Slab One", sans-serif; font-size: 2.2rem; line-height: 1; }
 .beer-count span { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 2px; }
 .beer-styles { display: flex; gap: clamp(0.9rem, 3vw, 1.6rem); flex-wrap: wrap; flex: 1; }
-.beer-style { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; width: 64px; }
-.beer-style svg { width: 30px; height: 38px; }
-.beer-style span { font-size: 0.7rem; color: var(--ink-muted); text-align: center; font-weight: 600; }
-@media (max-width: 560px) { .beer-showcase { justify-content: center; text-align: center; } }
+.beer-style { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; width: 64px; background: none; border: none; cursor: pointer; padding: 6px; border-radius: 10px; transition: background 0.2s ease, transform 0.2s ease; }
+.beer-style:hover, .beer-style:focus-visible { background: var(--cream); transform: translateY(-3px); }
+.beer-style svg { width: 30px; height: 38px; pointer-events: none; }
+.beer-style span { font-size: 0.7rem; color: var(--ink-muted); text-align: center; font-weight: 600; pointer-events: none; }
+.beer-hint { flex-basis: 100%; font-size: 0.72rem; color: var(--ink-muted); margin-top: 0.6rem; text-align: right; }
+@media (max-width: 560px) { .beer-showcase { justify-content: center; text-align: center; } .beer-hint { text-align: center; } }
+
+/* ---------- Beer modal ---------- */
+.beer-modal[hidden] { display: none; }
+.beer-modal { position: fixed; inset: 0; z-index: 200; display: flex; align-items: center; justify-content: center; padding: 24px; }
+.beer-modal__backdrop { position: absolute; inset: 0; background: rgba(26,20,20,0.6); }
+.beer-modal__panel { position: relative; background: var(--panel); border-radius: var(--radius); padding: 2rem; max-width: 380px; width: 100%; box-shadow: 0 30px 60px -20px rgba(0,0,0,0.5); border-top: 6px solid var(--red); }
+.beer-modal__close { position: absolute; top: 10px; right: 14px; background: none; border: none; font-size: 1.6rem; line-height: 1; color: var(--ink-muted); cursor: pointer; }
+.beer-modal__panel h3 { font-family: "Alfa Slab One", sans-serif; font-size: 1.4rem; color: var(--red-strong); margin-bottom: 1rem; text-transform: uppercase; }
+.beer-modal__list { list-style: none; padding: 0; margin: 0; }
+.beer-modal__list li { padding: 0.6rem 0; border-bottom: 1px dashed var(--border); display: flex; justify-content: space-between; gap: 12px; }
+.beer-modal__list li:last-child { border-bottom: none; }
+.beer-modal__list .b-name { font-weight: 700; color: var(--ink); }
+.beer-modal__list .b-abv { font-size: 0.78rem; color: var(--ink-muted); white-space: nowrap; }
+.beer-modal__hint { margin-top: 1.2rem; font-size: 0.72rem; color: var(--ink-muted); font-style: italic; }
 
 .practical__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
 @media (max-width: 900px) { .practical__grid { grid-template-columns: repeat(2, 1fr); } }
