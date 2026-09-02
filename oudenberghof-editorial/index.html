@@ -284,12 +284,50 @@ img{max-width:100%}
   .hero-video{display:none}
 }
 </style>
-<script defer src="js/main.js"></script>
+<script>(() => {
+  "use strict";
+
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------- header: solid once scrolled ---------- */
+  const header = document.querySelector("[data-header]");
+  if (header) {
+    const setHeaderState = () => header.classList.toggle("solid", window.scrollY > 40);
+    setHeaderState();
+    window.addEventListener("scroll", setHeaderState, { passive: true });
+  }
+
+  /* ---------- mobile nav toggle ---------- */
+  const navToggle = document.querySelector(".nav-toggle");
+  const mobileNav = document.getElementById("mobile-nav");
+  if (navToggle && mobileNav) {
+    navToggle.addEventListener("click", () => {
+      const open = mobileNav.classList.toggle("open");
+      navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    mobileNav.querySelectorAll("a").forEach((a) =>
+      a.addEventListener("click", () => {
+        mobileNav.classList.remove("open");
+        navToggle.setAttribute("aria-expanded", "false");
+      })
+    );
+  }
+
+  /* ---------- hero video: activates only if a real source loads, else silently falls back to the photo ---------- */
+  const heroVideo = document.querySelector(".hero-video");
+  if (heroVideo && !prefersReducedMotion) {
+    heroVideo.addEventListener("canplaythrough", () => heroVideo.classList.add("is-ready"), { once: true });
+    heroVideo.addEventListener("error", () => heroVideo.remove(), { once: true });
+  } else if (heroVideo) {
+    heroVideo.remove();
+  }
+})();
+</script>
 </head>
 <body class="site-body">
 
 <!--
-  ONTWERPVOORSTEL, EDITORIAL VARIANT — Jona Webdesign x Olivier Foket
+  ONTWERPVOORSTEL, EDITORIAL VARIANT — Jona Webdesign
   Zelfde inhoudelijke bronnen/voorbehouden als de andere variant (zie ../oudenberghof/index.html).
   Deze versie is een apart art-direction-alternatief: donker groen/goud editorial-design,
   zelf-gehoste Playfair Display + DM Sans i.p.v. Fraunces. Fotografie: onze eigen, lokaal
@@ -307,7 +345,7 @@ img{max-width:100%}
     <a href="#sfeer">Sfeer</a>
     <a href="#praktisch">Praktisch</a>
     <a href="#route">Route</a>
-    <a class="nav-order" href="bestellen.html">Online bestellen <span>&#8599;</span></a>
+    <a class="nav-order" href="tel:+3254412854">Bel nu <span>&#8599;</span></a>
   </nav>
   <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav"><span></span><span></span><span></span><b class="sr-only">Menu</b></button>
   <nav id="mobile-nav" class="mobile-nav" aria-label="Mobiele navigatie">
@@ -315,7 +353,7 @@ img{max-width:100%}
     <a href="#sfeer">Sfeer</a>
     <a href="#praktisch">Praktisch</a>
     <a href="#route">Route</a>
-    <a href="bestellen.html">Online bestellen &#8599;</a>
+    <a href="tel:+3254412854">Bel nu &#8599;</a>
   </nav>
 </header>
 
@@ -335,7 +373,7 @@ img{max-width:100%}
       <h1 id="hero-title"><span>Oudenberg</span><em>hof</em></h1>
       <p class="hero-tagline">Een vertrouwde tafel.<br />In het hart van Geraardsbergen.</p>
       <div class="hero-actions">
-        <a class="button button-light" href="bestellen.html">Bestel voor afhaal <span>&rarr;</span></a>
+        <a class="button button-light" href="tel:+3254412854">Bel voor reservatie <span>&rarr;</span></a>
         <a class="text-link light" href="#verhaal">Ontdek de zaak <span>&darr;</span></a>
       </div>
     </div>
@@ -372,21 +410,8 @@ img{max-width:100%}
     </div>
   </section>
 
-  <section class="order-tease">
-    <div class="section-shell order-tease-inner">
-      <div>
-        <p class="section-kicker">02 &mdash; Afhalen</p>
-        <h2>Ook thuis smaakt het<br /><em>naar Oudenberghof.</em></h2>
-      </div>
-      <div>
-        <p>Bestel rechtstreeks, kies je moment en hou het eenvoudig. Een moderne bestelervaring, zonder de herkenbaarheid van de zaak kwijt te raken.</p>
-        <a class="button button-dark" href="bestellen.html">Bekijk het afhaalmenu <span>&rarr;</span></a>
-      </div>
-    </div>
-  </section>
-
   <section id="praktisch" class="practical section-shell">
-    <div class="section-kicker">03 &mdash; Praktisch</div>
+    <div class="section-kicker">02 &mdash; Praktisch</div>
     <div class="practical-grid">
       <div>
         <h2>Kom langs wanneer<br />het jou past.</h2>
@@ -429,7 +454,7 @@ img{max-width:100%}
 <footer class="site-footer">
   <div><a class="brand" href="index.html"><span class="brand-mark">&#10022;</span><span><strong>OUDENBERGHOF</strong><small>Geraardsbergen</small></span></a></div>
   <div><span>Edingseweg 13 &middot; 9500 Geraardsbergen</span><span>054 41 28 54</span></div>
-  <div><a href="bestellen.html">Online bestellen &#8599;</a><a href="https://www.oudenberghof.be" target="_blank" rel="noopener">Huidige website &#8599;</a></div>
+  <div><a href="https://www.oudenberghof.be" target="_blank" rel="noopener">Huidige website &#8599;</a></div>
   <div><span>Vrijblijvend ontwerpvoorstel — Jona Webdesign &middot; <a href="mailto:webdesignjona@gmail.com">webdesignjona@gmail.com</a></span></div>
 </footer>
 
