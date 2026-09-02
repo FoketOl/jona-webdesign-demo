@@ -139,7 +139,14 @@ header.site-nav.scrolled { background: rgba(247,236,217,0.92); backdrop-filter: 
 @media (max-width: 860px) { .story-grid { grid-template-columns: 1fr; } .story-photo img { height: 300px; } }
 
 /* ---------- Menu: market-stall grid ---------- */
-.menu-section { padding: 110px 0; background: var(--teak); color: var(--cream); position: relative; overflow: hidden; }
+.menu-section {
+  padding: 110px 0; color: var(--cream); position: relative; overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(20,13,6,0.88) 0%, rgba(20,13,6,0.94) 100%),
+    url("../images/interieur-1.jpg");
+  background-size: cover; background-position: center 30%; background-attachment: fixed;
+}
+@media (max-width: 900px) { .menu-section { background-attachment: scroll; } }
 .menu-th-vertical { position: absolute; right: 22px; top: 60px; writing-mode: vertical-rl; color: var(--gold); letter-spacing: 0.35em; font-size: 0.85rem; opacity: 0.45; font-weight: 600; }
 .menu-roof-bg { position: absolute; left: -40px; bottom: -20px; width: 200px; color: var(--gold); opacity: 0.05; pointer-events: none; }
 .menu-lotus-bg { position: absolute; top: -6%; right: -4%; width: 240px; color: var(--lotus); opacity: 0.08; pointer-events: none; transform: rotate(-6deg); }
