@@ -51,6 +51,9 @@ body { font-family: var(--body); color: var(--ink); background: var(--cream); li
 /* ---------- Nav ---------- */
 header.site-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 50; padding: 18px 0; transition: background 0.3s ease, backdrop-filter 0.3s ease; }
 header.site-nav.scrolled { background: rgba(247,236,217,0.92); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
+.flag-badge { display: inline-block; width: 27px; height: 18px; border-radius: 2px; box-shadow: 0 0 0 1px rgba(0,0,0,0.15); background: linear-gradient(to bottom, #A51931 0 16.6%, #F4F5F8 16.6% 33.3%, #2D2A4A 33.3% 66.6%, #F4F5F8 66.6% 83.3%, #A51931 83.3% 100%); flex-shrink: 0; }
+.brand-mark .word-block { position: relative; }
+.brand-mark .sub-row { display: flex; align-items: center; gap: 7px; }
 .nav-inner { display: flex; align-items: center; justify-content: space-between; max-width: 1180px; margin: 0 auto; padding: 0 26px; }
 .brand-mark { display: flex; align-items: center; gap: 12px; text-decoration: none; }
 .brand-mark svg { width: 40px; height: 40px; }
@@ -105,6 +108,30 @@ header.site-nav.scrolled { background: rgba(247,236,217,0.92); backdrop-filter: 
   .hero p.lead { margin-left: auto; margin-right: auto; }
   .hero-scroll { left: 50%; transform: translateX(-50%); }
 }
+
+/* ---------- Flag banner: full-width Thai national-flag band, section divider ---------- */
+.flag-banner {
+  height: 52px; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden;
+  background: linear-gradient(to bottom, #A51931 0 16.6%, #F4F5F8 16.6% 33.3%, #2D2A4A 33.3% 66.6%, #F4F5F8 66.6% 83.3%, #A51931 83.3% 100%);
+}
+.flag-banner span {
+  background: rgba(20,13,6,0.82); color: #f5ecdb; font-family: var(--heading); font-weight: 700; font-size: 0.78rem;
+  letter-spacing: 0.14em; text-transform: uppercase; padding: 9px 26px; border-radius: 30px;
+}
+@media (max-width: 600px) { .flag-banner { height: 40px; } .flag-banner span { font-size: 0.68rem; padding: 7px 18px; } }
+
+/* ---------- Zijbanners: verticale temple-friesbanden, buiten de content-kolom (breed scherm) ---------- */
+.side-banner {
+  position: fixed; top: 0; bottom: 0; width: 40px; z-index: 5; pointer-events: none;
+  background-color: var(--teak-deep);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='58'%3E%3Cg fill='none' stroke='%23d99a3d' stroke-width='2' stroke-linejoin='round' opacity='0.85'%3E%3Cpath d='M9 49 L20 30 L31 49 Z'/%3E%3C/g%3E%3Ccircle cx='20' cy='14' r='4.5' fill='none' stroke='%23c9425a' stroke-width='2' opacity='0.8'/%3E%3C/svg%3E");
+  background-repeat: repeat-y; background-position: center; background-size: 40px 58px;
+  box-shadow: inset 0 0 0 1px rgba(217,154,61,0.25);
+  display: none;
+}
+.side-banner.left { left: 0; }
+.side-banner.right { right: 0; transform: scaleX(-1); }
+@media (min-width: 1320px) { .side-banner { display: block; } }
 
 /* ---------- Krajung border: repeating lotus-petal frieze (Thai temple base-moulding motif) ---------- */
 .krajung-border { position: absolute; top: 0; left: 0; right: 0; width: 100%; height: 16px; background-repeat: repeat-x; background-position: center; background-size: 24px 16px; z-index: 1; }
@@ -253,7 +280,7 @@ footer a { color: var(--cream); }
       </svg>
       <span class="word-block">
         <span class="word">Thai Recept</span>
-        <span class="sub">&#3588;&#3619;&#3633;&#3623;&#3652;&#3607;&#3618; &middot; GERAARDSBERGEN</span>
+        <span class="sub-row"><span class="flag-badge" aria-hidden="true" title="Thailand"></span><span class="sub">&#3588;&#3619;&#3633;&#3623;&#3652;&#3607;&#3618; &middot; GERAARDSBERGEN</span></span>
       </span>
     </a>
     <nav>
@@ -267,6 +294,9 @@ footer a { color: var(--cream); }
     <button class="nav-toggle" id="navToggle" aria-label="Menu">&#9776;</button>
   </div>
 </header>
+
+<div class="side-banner left" aria-hidden="true"></div>
+<div class="side-banner right" aria-hidden="true"></div>
 
 <section class="hero">
   <div class="wrap hero-grid">
@@ -285,6 +315,8 @@ footer a { color: var(--cream); }
   <div class="hero-photo-cap">&#3626;&#3604; &middot; &#3629;&#3619;&#3656;&#3629;&#3618; &mdash; onze eigen zaal</div>
   <div class="hero-scroll">Scroll</div>
 </section>
+
+<div class="flag-banner"><span>&#3611;&#3619;&#3632;&#3648;&#3607;&#3624;&#3652;&#3607;&#3618; &middot; Made in Thailand, smaak</span></div>
 
 <section class="story" id="over">
   <div class="krajung-border on-cream"></div>
@@ -451,7 +483,8 @@ footer a { color: var(--cream); }
           <h3>Contact &amp; levering</h3>
           <div class="contact-line"><span class="contact-icon">&#9742;</span><a href="tel:0542552 80">054 25 52 80</a></div>
           <div class="contact-line"><span class="contact-icon">&#8982;</span><a href="https://www.google.com/maps/search/?api=1&query=Adamstraat+17+9500+Geraardsbergen" target="_blank" rel="noopener">Adamstraat 17, Geraardsbergen</a></div>
-          <div class="contact-line"><span class="contact-icon">&#128666;</span><span class="val">Gratis levering &middot; 10% korting bij afhalen</span></div>
+          <div class="contact-line"><span class="contact-icon">&#128666;</span><span class="val">Gratis levering &mdash; centrum vanaf &euro;25, groot Geraardsbergen vanaf &euro;45</span></div>
+          <div class="contact-line"><span class="contact-icon">&#127974;</span><span class="val">10% korting bij afhalen</span></div>
         </div>
       </div>
     </div>
