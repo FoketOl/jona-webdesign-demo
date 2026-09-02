@@ -148,6 +148,20 @@ body {
 .chk-warn { color: var(--amber); border-color: var(--amber); opacity: 0.8; }
 .jd-feedback { font-family: var(--mono); font-size: 0.68rem; color: var(--ink-dim); background: var(--bg); border-left: 2px solid var(--cyan-dim); padding: 6px 10px; margin-bottom: 12px; line-height: 1.5; }
 
+.feedback-box { margin-top: 14px; }
+.feedback-box label { display: block; font-family: var(--mono); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--cyan-dim); margin-bottom: 6px; }
+.feedback-input { width: 100%; min-height: 64px; resize: vertical; background: var(--bg); border: 1px solid var(--border); color: var(--ink); font-family: var(--sans); font-size: 0.82rem; line-height: 1.5; padding: 8px 10px; box-sizing: border-box; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+.feedback-input:focus { outline: none; border-color: var(--cyan-dim); box-shadow: 0 0 0 2px rgba(42,139,168,0.25); }
+.feedback-input.fb-saved { border-color: var(--green-dim); }
+.feedback-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; padding: 14px 24px; background: rgba(10,14,21,0.96); backdrop-filter: blur(8px); border-top: 1px solid var(--border-bright); display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+body { padding-bottom: 76px; }
+.feedback-bar .fb-status { font-family: var(--mono); font-size: 0.72rem; color: var(--ink-dim); }
+.feedback-bar .fb-status b { color: var(--green); }
+.fb-btn { font-family: var(--mono); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; padding: 9px 18px; border: 1px solid var(--cyan-dim); background: transparent; color: var(--cyan); cursor: pointer; transition: background 0.2s ease, color 0.2s ease; }
+.fb-btn:hover { background: var(--cyan-dim); color: var(--bg); }
+.fb-btn.fb-secondary { border-color: var(--border-bright); color: var(--ink-dim); }
+.fb-btn.fb-secondary:hover { background: var(--border-bright); color: var(--ink); }
+
 .card-meta { display: flex; gap: 16px; flex-wrap: wrap; font-family: var(--mono); font-size: 0.72rem; color: var(--ink-dim); margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px dashed var(--border); }
 .card-meta b { color: var(--ink); font-weight: 500; }
 .card-current { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
@@ -305,6 +319,10 @@ footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--border
         <div class="variant-row"><span class="variant-name">Editorial</span><div class="variant-links"><a href="https://foketol.github.io/jona-webdesign-demo/oudenberghof-editorial/" target="_blank" rel="noopener">site</a><a class="secondary" href="https://foketol.github.io/jona-webdesign-demo/oudenberghof-editorial/bestellen.html" target="_blank" rel="noopener">bestel</a></div></div>
         <div class="variant-row"><span class="variant-name">Fotografisch</span><div class="variant-links"><a href="https://foketol.github.io/jona-webdesign-demo/oudenberghof-fotografisch/" target="_blank" rel="noopener">site</a><a class="secondary" href="https://foketol.github.io/jona-webdesign-demo/oudenberghof-fotografisch/bestel.html" target="_blank" rel="noopener">bestel</a></div></div>
       </div>
+      <div class="feedback-box">
+        <label for="fb-oudenberghof">Feedback</label>
+        <textarea id="fb-oudenberghof" class="feedback-input" data-client="Taverne Oudenberghof" placeholder="Typ hier live tijdens het gesprek..."></textarea>
+      </div>
     </div>
 
     <div class="client-card">
@@ -323,6 +341,10 @@ footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--border
         <div class="variant-row"><span class="variant-name">Boerderij</span><div class="variant-links"><a href="https://foketol.github.io/jona-webdesign-demo/schendelbeekhof-boerderij/" target="_blank" rel="noopener">site</a><a class="secondary" href="https://foketol.github.io/jona-webdesign-demo/schendelbeekhof-boerderij/reserveren.html" target="_blank" rel="noopener">reserveer</a></div></div>
         <div class="variant-row"><span class="variant-name">Elegant</span><div class="variant-links"><a href="https://foketol.github.io/jona-webdesign-demo/schendelbeekhof-elegant/" target="_blank" rel="noopener">site</a><a class="secondary" href="https://foketol.github.io/jona-webdesign-demo/schendelbeekhof-elegant/reserveren.html" target="_blank" rel="noopener">reserveer</a></div></div>
         <div class="variant-row"><span class="variant-name">Bistro</span><div class="variant-links"><a href="https://foketol.github.io/jona-webdesign-demo/schendelbeekhof-bistro/" target="_blank" rel="noopener">site</a><a class="secondary" href="https://foketol.github.io/jona-webdesign-demo/schendelbeekhof-bistro/reserveren.html" target="_blank" rel="noopener">reserveer</a></div></div>
+      </div>
+      <div class="feedback-box">
+        <label for="fb-schendelbeekhof">Feedback</label>
+        <textarea id="fb-schendelbeekhof" class="feedback-input" data-client="Restaurant Schendelbeekhof" placeholder="Typ hier live tijdens het gesprek..."></textarea>
       </div>
     </div>
 
@@ -344,6 +366,10 @@ footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--border
         <div class="variant-row"><span class="variant-name">Bruin Caf&eacute;</span><div class="variant-links"><a href="https://foketol.github.io/jona-webdesign-demo/stadhuis-bruin-cafe/" target="_blank" rel="noopener">site</a><a class="secondary" href="https://foketol.github.io/jona-webdesign-demo/stadhuis-bruin-cafe/reserveren.html" target="_blank" rel="noopener">reserveer</a></div></div>
         <div class="variant-row"><span class="variant-name">Event &amp; Arcade</span><div class="variant-links"><a href="https://foketol.github.io/jona-webdesign-demo/stadhuis-event-arcade/" target="_blank" rel="noopener">site</a><a class="secondary" href="https://foketol.github.io/jona-webdesign-demo/stadhuis-event-arcade/reserveren.html" target="_blank" rel="noopener">reserveer</a></div></div>
       </div>
+      <div class="feedback-box">
+        <label for="fb-stadhuis">Feedback</label>
+        <textarea id="fb-stadhuis" class="feedback-input" data-client="Taverne Stadhuis" placeholder="Typ hier live tijdens het gesprek..."></textarea>
+      </div>
     </div>
 
     <div class="client-card">
@@ -363,6 +389,10 @@ footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--border
         <div class="variant-row"><span class="variant-name">Elegant</span><div class="variant-links"><a href="https://foketol.github.io/jona-webdesign-demo/coiffure-elegant/" target="_blank" rel="noopener">site</a></div></div>
         <div class="variant-row"><span class="variant-name">Bold Editorial</span><div class="variant-links"><a href="https://foketol.github.io/jona-webdesign-demo/coiffure-bold-editorial/" target="_blank" rel="noopener">site</a></div></div>
       </div>
+      <div class="feedback-box">
+        <label for="fb-coiffure">Feedback</label>
+        <textarea id="fb-coiffure" class="feedback-input" data-client="Coiffure Exclusief" placeholder="Typ hier live tijdens het gesprek..."></textarea>
+      </div>
     </div>
 
     <div class="client-card">
@@ -381,6 +411,10 @@ footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--border
         <div class="variant-row"><span class="variant-name">Refined</span><div class="variant-links"><a href="https://foketol.github.io/jona-webdesign-demo/grofzout-refined/" target="_blank" rel="noopener">site</a></div></div>
         <div class="variant-row"><span class="variant-name">Editorial Dark</span><div class="variant-links"><a href="https://foketol.github.io/jona-webdesign-demo/grofzout-editorial-dark/" target="_blank" rel="noopener">site</a></div></div>
       </div>
+      <div class="feedback-box">
+        <label for="fb-grofzout">Feedback</label>
+        <textarea id="fb-grofzout" class="feedback-input" data-client="'t Grof Zout" placeholder="Typ hier live tijdens het gesprek..."></textarea>
+      </div>
     </div>
 
     <div class="client-card">
@@ -397,6 +431,10 @@ footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--border
       <div class="card-meta"><span>Gebouwd <b>29.08</b></span><span><b>1</b> variant</span></div>
       <div class="variant-list">
         <div class="variant-row"><span class="variant-name">Artisanaal</span><div class="variant-links"><a href="https://foketol.github.io/jona-webdesign-demo/sarlar-artisanaal/" target="_blank" rel="noopener">site</a></div></div>
+      </div>
+      <div class="feedback-box">
+        <label for="fb-sarlar">Feedback</label>
+        <textarea id="fb-sarlar" class="feedback-input" data-client="Bakkerij Sarlar" placeholder="Typ hier live tijdens het gesprek..."></textarea>
       </div>
     </div>
 
@@ -415,6 +453,10 @@ footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--border
       <div class="variant-list">
         <div class="variant-row"><span class="variant-name">Rustiek</span><div class="variant-links"><a href="https://foketol.github.io/jona-webdesign-demo/reuse-rustiek/" target="_blank" rel="noopener">site</a></div></div>
       </div>
+      <div class="feedback-box">
+        <label for="fb-reuse">Feedback</label>
+        <textarea id="fb-reuse" class="feedback-input" data-client="Slagerij De Reuse" placeholder="Typ hier live tijdens het gesprek..."></textarea>
+      </div>
     </div>
 
     <div class="client-card">
@@ -431,6 +473,10 @@ footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--border
       <div class="card-meta"><span>Gebouwd <b>29.08</b></span><span><b>1</b> variant</span></div>
       <div class="variant-list">
         <div class="variant-row"><span class="variant-name">Urban Nacht</span><div class="variant-links"><a href="https://foketol.github.io/jona-webdesign-demo/thai-urban-nacht/" target="_blank" rel="noopener">site</a></div></div>
+      </div>
+      <div class="feedback-box">
+        <label for="fb-thairecept">Feedback</label>
+        <textarea id="fb-thairecept" class="feedback-input" data-client="Thai Recept" placeholder="Typ hier live tijdens het gesprek..."></textarea>
       </div>
     </div>
 
@@ -449,6 +495,10 @@ footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--border
       <div class="variant-list">
         <div class="variant-row"><span class="variant-name">Warm Oosters</span><div class="variant-links"><a href="https://foketol.github.io/jona-webdesign-demo/rozenberg-warm-oosters/" target="_blank" rel="noopener">site</a></div></div>
       </div>
+      <div class="feedback-box">
+        <label for="fb-rozenberg">Feedback</label>
+        <textarea id="fb-rozenberg" class="feedback-input" data-client="De Rozenberg" placeholder="Typ hier live tijdens het gesprek..."></textarea>
+      </div>
     </div>
 
     <div class="client-card">
@@ -465,6 +515,10 @@ footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--border
       <div class="card-meta"><span>Gebouwd <b>29.08</b></span><span><b>1</b> variant</span></div>
       <div class="variant-list">
         <div class="variant-row"><span class="variant-name">Landelijk</span><div class="variant-links"><a href="https://foketol.github.io/jona-webdesign-demo/lorreintje-landelijk/" target="_blank" rel="noopener">site</a></div></div>
+      </div>
+      <div class="feedback-box">
+        <label for="fb-lorreintje">Feedback</label>
+        <textarea id="fb-lorreintje" class="feedback-input" data-client="'t Lorreintje" placeholder="Typ hier live tijdens het gesprek..."></textarea>
       </div>
     </div>
 
@@ -607,6 +661,80 @@ document.addEventListener('keydown', function (e) {
   LOCATIONS.forEach(function (loc) {
     L.marker([loc.lat, loc.lon], { icon: pendingIcon }).addTo(map)
       .bindPopup('<strong>' + loc.name + '</strong><br><a href="' + loc.url + '" target="_blank" rel="noopener">bekijk demo</a>');
+  });
+})();
+</script>
+
+<div class="feedback-bar">
+  <span class="fb-status" id="fbStatus">Nog geen feedback ingevuld.</span>
+  <button class="fb-btn fb-secondary" id="fbCopyBtn" type="button">Kopieer alles</button>
+  <button class="fb-btn" id="fbSendBtn" type="button">Verstuur naar Jona-inbox</button>
+</div>
+<script>
+(function () {
+  var STORE_KEY = "jonaCommandFeedback";
+  var inputs = Array.prototype.slice.call(document.querySelectorAll(".feedback-input"));
+  var statusEl = document.getElementById("fbStatus");
+
+  function loadAll() {
+    try { return JSON.parse(localStorage.getItem(STORE_KEY) || "{}"); }
+    catch (e) { return {}; }
+  }
+  function saveAll(data) {
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(data)); } catch (e) {}
+  }
+  function updateStatus() {
+    var data = loadAll();
+    var filled = inputs.filter(function (el) { return (data[el.id] || "").trim().length > 0; });
+    if (filled.length === 0) {
+      statusEl.innerHTML = "Nog geen feedback ingevuld.";
+    } else {
+      statusEl.innerHTML = "<b>" + filled.length + "</b> van " + inputs.length + " klanten hebben feedback.";
+    }
+  }
+
+  var saved = loadAll();
+  inputs.forEach(function (el) {
+    if (saved[el.id]) { el.value = saved[el.id]; el.classList.add("fb-saved"); }
+    el.addEventListener("input", function () {
+      var data = loadAll();
+      data[el.id] = el.value;
+      saveAll(data);
+      el.classList.toggle("fb-saved", el.value.trim().length > 0);
+      updateStatus();
+    });
+  });
+  updateStatus();
+
+  function buildSummary() {
+    var data = loadAll();
+    var lines = [];
+    inputs.forEach(function (el) {
+      var text = (data[el.id] || "").trim();
+      if (text) {
+        lines.push(el.dataset.client + ":\n" + text + "\n");
+      }
+    });
+    return lines.join("\n");
+  }
+
+  document.getElementById("fbCopyBtn").addEventListener("click", function () {
+    var summary = buildSummary();
+    if (!summary) { alert("Nog niks ingevuld."); return; }
+    navigator.clipboard.writeText(summary).then(function () {
+      statusEl.innerHTML = "Gekopieerd naar klembord.";
+      setTimeout(updateStatus, 2500);
+    }, function () {
+      alert(summary);
+    });
+  });
+
+  document.getElementById("fbSendBtn").addEventListener("click", function () {
+    var summary = buildSummary();
+    if (!summary) { alert("Nog niks ingevuld."); return; }
+    var subject = encodeURIComponent("Klant-feedback vanavond (Jona Command)");
+    var body = encodeURIComponent(summary + "\n-- verstuurd vanuit het Jona Command dashboard");
+    window.location.href = "mailto:webdesignjona@gmail.com?subject=" + subject + "&body=" + body;
   });
 })();
 </script>
