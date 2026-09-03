@@ -40,6 +40,8 @@ a { color: inherit; }
 .reveal.is-visible { opacity: 1; transform: translateY(0); }
 @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
 
+a:focus-visible, button:focus-visible { outline: 2px solid var(--signal); outline-offset: 3px; border-radius: 4px; }
+
 /* ---------- Nav ---------- */
 header.site-nav { position: sticky; top: 0; z-index: 50; background: rgba(10,14,13,0.86); backdrop-filter: blur(16px); border-bottom: 1px solid var(--line); }
 .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; max-width: 1160px; margin: 0 auto; }
